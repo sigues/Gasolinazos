@@ -6,13 +6,48 @@
                                 <h3><?=$estacion["direccion"]?>, <?=$estacion["colonia"]?>, <?=$estacion["nombre_ciudad"]?>, <?=$estacion["nombre_estado"]?></h3>
                         </header>
                         <p>
-                                Información de la gasolinera <br>
-                                Información de la gasolinera <br>
-                                Información de la gasolinera <br>
-                                Información de la gasolinera <br>
-                                Información de la gasolinera <br>
-                                Información de la gasolinera <br>
-                                Información de la gasolinera <br>
+                            <?php
+                            $semaforo[1] = "verde";
+                            $semaforo[2] = "amarilla";
+                            $semaforo[3] = "roja";
+                                foreach($reportes as $reporte){
+                                    echo "<a href='http://webapps.profeco.gob.mx/verificacion/gasolina/gasolinera01.asp?IdEs=".$reporte->idprofeco."' target='_blank'>Alerta ".$semaforo[$reporte->semaforo]." del día ".date("d-m-Y",strtotime($reporte->fecha))."</a><br>";
+                                }
+                            ?>
+                            
+                            <table width="100%">
+                                <tr>
+                                    <td><b>Productos:</b></td>
+                                    <td>
+                                        <?
+                                        foreach($productos as $producto){
+                                            echo $producto->nombre.": ".$producto->precio."<br>";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><b>Promedio:</b></td>
+                                    <td><span id="promedio_voto"><?=$promedio?></span>% (<span id="votos_voto"><?=$votos?></span> votos)</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Cualli:</b></td>
+                                    <td><?=($estacion["cualli"]==0)?"No":"Si"?></td>
+                                    <td><b>VPM:</b></td>
+                                    <td><?=($estacion["vpm"]==0)?"No":"Si"?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Inicio de operaciones:</b></td>
+                                    <td><?=date("d-m-Y",strtotime($estacion["inicio_operaciones"]))?></td>
+                                    <td><b>Grupo:</b></td>
+                                    <td><a href="<?=base_url()."index.php/grupo/perfil/".$estacion["grupo_idgrupo"]."/".urlencode($estacion["nombre"])?>"><?=$estacion["nombre"]?></a></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fecha de contrato:</b></td>
+                                    <td><?=date("d-m-Y",strtotime($estacion["fecha_contrato"]))." - ".date("d-m-Y",strtotime($estacion["vencimiento_contrato"]))?></td>
+                                    <td><b>Número de contrato:</b></td>
+                                    <td><?=$estacion["numero_contrato"]?></td>
+                                </tr>
+                            </table>
+                        
                         </p>
                         
                         <p>
@@ -21,8 +56,8 @@
                                // echo $cadena_mapa;
                             ?>
                             <iframe width="825" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
-                            src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=PEMEX-<?=$cadena_mapa?>,+tijuana&amp;aq=&amp;sll=37.0625,-95.677068
-                            &amp;sspn=37.136668,86.572266&amp;t=h&amp;ie=UTF8&amp;hq=PEMEX-<?=$cadena_mapa?>,&amp;hnear=Tijuana,+Baja+California,+Mexico&amp;ll=32.529472,-117.010391
+                            src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=PEMEX-<?=$cadena_mapa?>,+<?=$estacion["nombre_ciudad"]?>,+<?=$estacion["nombre_estado"]?>&amp;aq=
+                            &amp;t=h&amp;ie=UTF8&amp;hq=PEMEX-<?=$cadena_mapa?>,&amp;hnear=,+<?=$estacion["nombre_ciudad"]?>,+<?=$estacion["nombre_estado"]?>,+Mexico
                             &amp;spn=0.031955,0.061283&amp;output=embed"></iframe>
                             <br /><small>
                             <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=PEMEX-<?=$cadena_mapa?>,+tijuana&amp;aq=&amp;sll=37.0625,-95.677068
@@ -30,23 +65,35 @@
                             &amp;spn=0.031955,0.061283" style="color:#0000FF;text-align:left">View Larger Map</a></small>
 
                         </p>
-                        <p>
-                            
-                        <h1>Comentarios</h1>
-                        </p>
+                            <div class="fb-comments" data-href="http://www.gasolinazos.com" data-width="825" data-num-posts="10">
+                                
+                            </div>                       
                 </section>
 
 </div>
 <div class="3u">
 
+    <input id="idgasolinera" type="hidden" value="<?=$estacion["idgasolinera"]?>"/>
+    <input id="base_url" type="hidden" value="<?=base_url()?>"/>
         <!-- Sidebar -->
                 <section>
                         <header>
                                 <h2>Calificación</h2>
                         </header>
-                    <p>
-                    <div style="background-color:yellow;height:225px;width:225px;">Aquí va a ir la madre para calificar</div>
-                    </p>
+                    <div class="div_calificar">
+                        Aquí va a ir la madre para calificar
+                        <table border="1" class="calificar">
+                            <tr>
+                                <td><button id="votoMas" class="botonMas">+</button></td>
+                                <td rowspan="2"><span id="promedio"><?=$promedio?></span>%<br>
+                                                <span id="votos"><?=$votos?></span> votos
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><button id="votoMenos" class="botonMenos">-</button></td>
+                            </tr>
+                        </table>
+                    </div>
                         <ul class="link-list">
                                 <li><a href="#">Ver quejas</a></li>
                                 <li><a href="#">Semáforo PROFECO</a></li>
@@ -67,12 +114,29 @@
                                 ?> <b>Direccion:</b> <?=$estacion["direccion"]?>, <?=$estacion["colonia"]?>, <?=$estacion["nombre_ciudad"]?>, <?=$estacion["nombre_estado"]?> </br>
                             <? } ?>                                
                         </p>
-<!--                        <ul class="link-list">
-                                <li><a href="#">Sed dolore viverra</a></li>
-                                <li><a href="#">Ligula non varius</a></li>
-                                <li><a href="#">Dis parturient montes</a></li>
-                                <li><a href="#">Nascetur ridiculus</a></li>
-                        </ul>-->
+                </section>
+                <section>
+                        <header>
+                                <h2>Otras gasolineras:</h2>
+                        </header>
+                        
+                        <ul class="link-list">
+                            <?php foreach($gasolineras as $li_gasolinera){ ?>
+                                <li><a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$li_gasolinera->estacion?>"><?=$li_gasolinera->estacion?></a></li>
+                            <?php } ?>
+                        </ul>
                 </section>
 
 </div>
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<script src="<?=base_url()?>js/lib/estacion.js"></script>
+

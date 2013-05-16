@@ -68,8 +68,39 @@ class Gasolinera_m extends CI_Model {
         return $producto;
     }
     
-    function getPromedioGasolinera(){
+    function getPromedioGasolinera($idgasolinera){
+        $this->db->select("count(idvoto) votos, sum(valor)/count(valor) promedio");
+        $this->db->from("voto");
+        $this->db->where("gasolinera_idgasolinera",$idgasolinera);
+        $query = $this->db->get();
+        foreach($query->result() as $row){
+            $promedio = $row;
+        }
+        return $promedio;
         
+    }
+    
+    function getGasolineras($limit = 10, $colonia="", $ciudad="", $estado=""){
+        $this->db->select("count(idvoto) votos, sum(valor)/count(valor) promedio, 
+            gasolinera.idgasolinera,
+            gasolinera.estacion, gasolinera.nombre, gasolinera.direccion");
+        $this->db->from("voto");
+        $this->db->join("gasolinera","voto.gasolinera_idgasolinera = gasolinera.idgasolinera");
+        $this->db->order_by("promedio","desc");
+        $this->db->order_by("votos","desc");
+        $this->db->limit("10");
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        $gasolinera=array();
+        foreach($query->result() as $row){
+            $gasolinera[$row->idgasolinera] = $row;
+        }
+        return $gasolinera;
+        
+    }
+    
+    function voto($voto){
+        $this->db->insert("voto",$voto);
     }
 
 }
