@@ -38,7 +38,7 @@
                                     <td><b>Inicio de operaciones:</b></td>
                                     <td><?=date("d-m-Y",strtotime($estacion["inicio_operaciones"]))?></td>
                                     <td><b>Grupo:</b></td>
-                                    <td><a href="<?=base_url()."index.php/grupo/perfil/".$estacion["grupo_idgrupo"]."/".urlencode($estacion["nombre"])?>"><?=$estacion["nombre"]?></a></td>
+                                    <td><a href="<?=base_url()."index.php/grupo/perfil/".$estacion["grupo_idgrupo"]?>"><?=$estacion["nombre"]?></a></td>
                                 </tr>
                                 <tr>
                                     <td><b>Fecha de contrato:</b></td>
@@ -81,7 +81,6 @@
                                 <h2>Calificación</h2>
                         </header>
                     <div class="div_calificar">
-                        Aquí va a ir la madre para calificar
                         <table border="1" class="calificar">
                             <tr>
                                 <td><button id="votoMas" class="botonMas">+</button></td>

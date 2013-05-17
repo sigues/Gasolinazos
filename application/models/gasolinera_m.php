@@ -80,15 +80,48 @@ class Gasolinera_m extends CI_Model {
         
     }
     
-    function getGasolineras($limit = 10, $colonia="", $ciudad="", $estado=""){
-        $this->db->select("count(idvoto) votos, sum(valor)/count(valor) promedio, 
-            gasolinera.idgasolinera,
-            gasolinera.estacion, gasolinera.nombre, gasolinera.direccion");
-        $this->db->from("voto");
-        $this->db->join("gasolinera","voto.gasolinera_idgasolinera = gasolinera.idgasolinera");
+    function getGasolineras($limit = 10, $colonia="", $ciudad="", $estado="", $grupo="",$reporte = false){
+        $this->db->select("	IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
+	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio, 
+            gasolinera.idgasolinera, gasolinera.estacion, gasolinera.nombre, gasolinera.telefono,
+            gasolinera.direccion, gasolinera.colonia, ciudad.nombre nombre_ciudad, estado.nombre nombre_estado,
+            gasolinera.grupo_idgrupo");
+        if($reporte == true){
+            $this->db->select("count(idreporte_profeco) reportes");
+        }
+        $this->db->from("gasolinera");
+        $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");
+        $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
+        $this->db->join("estado","ciudad.estado_idestado = estado.idestado");
+        if($reporte == true){
+            $this->db->join("reporte_profeco","reporte_profeco.gasolinera_idgasolinera = gasolinera.idgasolinera");
+        }
+        $this->db->group_by("gasolinera.idgasolinera");
+
+        if($grupo != ""){
+            $this->db->where("gasolinera.grupo_idgrupo",$grupo);
+        }
+        if($ciudad != ""){
+            $this->db->where("gasolinera.ciudad_idciudad",$ciudad);
+        }
+        if($estado != ""){
+            $this->db->where("estado.idestado",$estado);
+        }
+        if($colonia != ""){
+            $this->db->where("gasolinera.idgasolinera.colonia",$colonia);
+        }
+        if($reporte == true){
+            $this->db->where("reporte_profeco.semaforo >","1");
+        }
+        
+        if($reporte == true){
+            $this->db->order_by("reporte_profeco.semaforo","desc");
+        }
         $this->db->order_by("promedio","desc");
         $this->db->order_by("votos","desc");
-        $this->db->limit("10");
+        if($limit != 0){
+            $this->db->limit($limit);
+        }
         $query = $this->db->get();
         //echo $this->db->last_query();
         $gasolinera=array();
@@ -97,6 +130,15 @@ class Gasolinera_m extends CI_Model {
         }
         return $gasolinera;
         
+    }
+    
+    function getPromedioGrupo($idgrupo){
+        $this->db->select("count(idvoto) votos, sum(valor)/count(idvoto) promedio");
+        $this->db->from("voto");
+        $this->db->join("gasolinera","voto.gasolinera_idgasolinera = gasolinera.idgasolinera");
+        $this->db->where("gasolinera.grupo_idgrupo",$idgrupo);
+        $query = $this->db->get();
+        return $query->row_array();
     }
     
     function voto($voto){
