@@ -332,3 +332,14 @@
         .total-promedio{
             font-size: 40px;
         }
+        
+        #buscador{
+            background-color: #6bbcef;
+            width:100%;
+            height:50px;
+        }
+        
+        #buscador div{
+            display: inline-block;
+            padding-right:30px;
+        }

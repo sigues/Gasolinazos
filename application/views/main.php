@@ -50,7 +50,6 @@
       // The response object is returned with a status field that lets the app know the current
       // login status of the person. In this case, we're handling the situation where they 
       // have logged in to the app.
-      alert("ya conectado");
       testAPI();
     } else if (response.status === 'not_authorized') {
       // In this case, the person is logged into Facebook, but not into the app, so we call
@@ -111,7 +110,7 @@
 							<!-- Nav -->
 								<nav id="nav">
 									<a href="<?=base_url()?>">Inicio</a>
-									<a href="threecolumn.html">Estaciones</a>
+									<a href="<?=base_url()?>indx.php/gasolineras/buscador">Estaciones</a>
 									<a href="twocolumn1.html">Las Peores</a>
 									<a href="twocolumn1.html">Las Mejores</a>
 									<a href="twocolumn2.html">Noticias</a>
