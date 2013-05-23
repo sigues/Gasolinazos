@@ -54,7 +54,7 @@ class estaciones{
 		if(is_array($estacion)){
 			echo "Ya existe la gasolinera en la base: ".$this->estacion."<br>";
 		}else{
-			echo "Se insertó la gasolinera: ".$this->estacion."<br>";
+			echo "Se insertÃ³ la gasolinera: ".$this->estacion."<br>";
 			$idgasolinera = $this->insertGasolinera();
 			if($this->magna == "S"){
 				$this->insertProductoGasolinera($idgasolinera,1);

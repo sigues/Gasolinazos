@@ -20,6 +20,10 @@
 		<meta name="keywords" content="" />
 		<script src="<?=base_url()?>js/jquery-1.9.1.min.js"></script>
 		<script src="<?=base_url()?>js/config.js"></script>
+                <script type="text/javascript"
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbR4DqYTbeqZUACVrVaAwnjFcgY6vR4BA&sensor=true">
+                  </script>
+
 		<script src="<?=base_url()?>js/skel.min.js"></script>
 		<script src="<?=base_url()?>js/skel-ui.min.js"></script>
 			<link rel="stylesheet" href="<?=base_url()?>css/skel-noscript.css" />

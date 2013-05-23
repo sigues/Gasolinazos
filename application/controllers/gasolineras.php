@@ -36,7 +36,7 @@ class Gasolineras extends CI_Controller {
             $ciudades = $this->gasolineras_m->buscaCiudad($estado);
             echo '<label for="ciudad">Ciudad:</label> 
                                 <select id="ciudad">
-                                    <option> - Seleccionar - </option>';
+                                    <option value=0> - Seleccionar - </option>';
             foreach($ciudades as $ciudad){
                 echo '<option value="'.$ciudad->idciudad.'">'.$ciudad->nombre.'</option>';
             }
@@ -50,13 +50,24 @@ class Gasolineras extends CI_Controller {
             $colonias = $this->gasolineras_m->buscaColonia($ciudad);
             echo '<label for="colonia">Colonia:</label> 
                                 <select id="colonia">
-                                    <option> - Seleccionar - </option>';
+                                    <option value=0> - Seleccionar - </option>';
             foreach($colonias as $colonia){
                 echo '<option value="'.$colonia->colonia.'">'.$colonia->colonia.'</option>';
             }
             echo '</select>';
-
         }
+        
+        public function buscarGasolineras(){
+            $estado = $this->input->post("estado");
+            $ciudad = $this->input->post("ciudad");
+            $colonia = $this->input->post("colonia");
+            $texto = $this->input->post("texto");
+            $pagina = $this->input->post("pagina");
+            $this->load->model("gasolineras_m");
+            $gasolineras = $this->gasolineras_m->buscarGasolineras($estado,$ciudad,$colonia,$texto);
+            echo json_encode($gasolineras);
+        }
+        
 }
 
 /* End of file welcome.php */

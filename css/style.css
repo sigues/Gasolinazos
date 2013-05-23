@@ -44,7 +44,7 @@
 
 	section > :last-child, .last-child
 	{
-		margin-bottom: 0 !important;
+		margin-bottom: 0/* !important*/;
 	}
 
 /* Multi-use */
@@ -122,6 +122,15 @@
 				font-size: 0.9em;
 				font-weight: 400;
 			}
+                        
+                        .quote-list small
+                        {
+                            font-size: 0.7em;
+                        }
+                        
+                        #resultados .quote-list li{
+                            padding: 0 0 0 0;
+                        }
 
 		#content .quote-list li
 		{
@@ -336,10 +345,55 @@
         #buscador{
             background-color: #6bbcef;
             width:100%;
-            height:50px;
+            height:80px;
         }
         
         #buscador div{
             display: inline-block;
-            padding-right:30px;
+            padding-right:15px;
+            margin-left:10px;
+        }
+        
+        #buscador div input{
+            -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
+            -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
+            -moz-border-radius:5px; 
+            -webkit-border-radius:5px;
+            border-radius:6px;
+        }
+        
+        #buscador div select{
+            -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
+            -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
+            -moz-border-radius:6px; 
+            -webkit-border-radius:6px;
+            border-radius:6px;
+        }
+        
+        #div-boton{
+            float:right;
+        }
+        
+        #div-texto{
+            display:block;
+            margin-top:10px;
+        }
+        #div-texto input{
+            width:300px;
+        }
+        #resultados{
+            display: inline-block;
+            padding-right:15px;
+            margin-left:10px;
+            width:290px;
+            float: left;
+        }
+        #mapa{
+            display: inline-block;
+            padding-right:15px;
+            margin-left:10px;
+            width:800px;
+            height:450px;
+/*            background: #aade7c;*/
+            float: right;
         }

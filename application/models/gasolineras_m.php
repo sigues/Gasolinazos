@@ -67,16 +67,53 @@ class Gasolineras_m extends CI_Model {
     }
     
     function buscaColonia($ciudad){
-        $this->db->select("distinct gasolinera.colonia nombre");
+        $this->db->select("gasolinera.colonia");
         $this->db->from("gasolinera");
         $this->db->where("ciudad_idciudad",$ciudad);
-        $this->db->order_by("nombre","asc");
+        $this->db->group_by("colonia");
+        $this->db->order_by("colonia","asc");
         $query = $this->db->get();
         $colonias = array();
         foreach($query->result() as $row){
-            $colonias[$row->nombre] = $row;
+            $colonias[$row->colonia] = $row;
         }
         return $colonias;
+    }
+    
+    function buscarGasolineras($estado=null,$ciudad=null,$colonia=null,$texto=null){
+        $this->db->select("gasolinera.*");
+        $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
+	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio ");
+        $this->db->from("gasolinera");
+        $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
+        $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");
+        if($estado != null && $estado != 0){
+            $this->db->where("ciudad.estado_idestado",$estado);
+        }
+        if($ciudad != null && $ciudad != 0){
+            $this->db->where("ciudad.idciudad",$ciudad);
+        }
+        if($colonia != null && $colonia != 0){
+            $this->db->where("gasolinera.colonia",$colonia);
+        }
+        if($texto != null){
+            $where = "gasolinera.nombre like '%$texto%' 
+                OR gasolinera.colonia like '%$texto%' 
+                OR ciudad.nombre like '%$texto%'";
+            $this->db->where($where);
+        }
+        $this->db->group_by("gasolinera.idgasolinera");
+        $this->db->order_by("promedio","desc");
+        $this->db->order_by("votos","desc");
+        $this->db->limit(10);
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $respuesta = array();$x=0;
+        foreach($query->result() as $row){
+            $respuesta[$x] = $row;
+            $x++;
+        }
+        return $respuesta;
     }
 
 }
