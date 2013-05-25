@@ -81,6 +81,7 @@ class Gasolineras_m extends CI_Model {
     }
     
     function buscarGasolineras($estado=null,$ciudad=null,$colonia=null,$texto=null){
+        var_dump($colonia);
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
 	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio ");
@@ -94,12 +95,16 @@ class Gasolineras_m extends CI_Model {
             $this->db->where("ciudad.idciudad",$ciudad);
         }
         if($colonia != null && $colonia != 0){
+            echo "ola ke ase";die();
             $this->db->where("gasolinera.colonia",$colonia);
+        }else{
+            echo "colonia = ".var_dump($colonia);die();
         }
+            
         if($texto != null){
-            $where = "gasolinera.nombre like '%$texto%' 
+            $where = "(gasolinera.nombre like '%$texto%' 
                 OR gasolinera.colonia like '%$texto%' 
-                OR ciudad.nombre like '%$texto%'";
+                OR ciudad.nombre like '%$texto%')";
             $this->db->where($where);
         }
         $this->db->group_by("gasolinera.idgasolinera");
@@ -107,7 +112,7 @@ class Gasolineras_m extends CI_Model {
         $this->db->order_by("votos","desc");
         $this->db->limit(10);
         $query = $this->db->get();
-//        echo $this->db->last_query();
+        echo $this->db->last_query();
         $respuesta = array();$x=0;
         foreach($query->result() as $row){
             $respuesta[$x] = $row;
