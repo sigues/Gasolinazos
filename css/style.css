@@ -382,6 +382,7 @@
             width:300px;
         }
         #resultados{
+            margin-top: 30px;
             display: inline-block;
             padding-right:15px;
             margin-left:10px;
@@ -389,6 +390,7 @@
             float: left;
         }
         #mapa{
+            margin-top: 30px;
             display: inline-block;
             padding-right:15px;
             margin-left:10px;
@@ -396,4 +398,7 @@
             height:450px;
 /*            background: #aade7c;*/
             float: right;
+        }
+        #map-canvas{
+            height: 100%
         }

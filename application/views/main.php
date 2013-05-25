@@ -114,7 +114,7 @@
 							<!-- Nav -->
 								<nav id="nav">
 									<a href="<?=base_url()?>">Inicio</a>
-									<a href="<?=base_url()?>indx.php/gasolineras/buscador">Estaciones</a>
+									<a href="<?=base_url()?>index.php/gasolineras/buscador">Estaciones</a>
 									<a href="twocolumn1.html">Las Peores</a>
 									<a href="twocolumn1.html">Las Mejores</a>
 									<a href="twocolumn2.html">Noticias</a>
