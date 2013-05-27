@@ -81,7 +81,7 @@ class Gasolineras_m extends CI_Model {
     }
     
     function buscarGasolineras($estado=null,$ciudad=null,$colonia=null,$texto=null){
-        var_dump($colonia);
+   //     var_dump($colonia);
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
 	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio ");
@@ -95,12 +95,12 @@ class Gasolineras_m extends CI_Model {
             $this->db->where("ciudad.idciudad",$ciudad);
         }
         if($colonia != null && $colonia != 0){
-            echo "ola ke ase";die();
+   //         echo "asdfg";die();
             $this->db->where("gasolinera.colonia",$colonia);
-        }else{
+        }/*else{
             echo "colonia = ".var_dump($colonia);die();
         }
-            
+            */
         if($texto != null){
             $where = "(gasolinera.nombre like '%$texto%' 
                 OR gasolinera.colonia like '%$texto%' 
@@ -112,7 +112,7 @@ class Gasolineras_m extends CI_Model {
         $this->db->order_by("votos","desc");
         $this->db->limit(10);
         $query = $this->db->get();
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
         $respuesta = array();$x=0;
         foreach($query->result() as $row){
             $respuesta[$x] = $row;
@@ -120,7 +120,71 @@ class Gasolineras_m extends CI_Model {
         }
         return $respuesta;
     }
+    
+    function buscarGasolinerasCoord($latitud,$longitud){
+        $lat_ini = $latitud + 0.05;
+        $lng_ini = $longitud - 0.05;
+        $lat_fin = $latitud - 0.05;
+        $lng_fin = $longitud + 0.05;
 
+        $this->db->select("gasolinera.*");
+        $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
+	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio ");
+        $this->db->from("gasolinera");
+        $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
+        $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");
+        //Condiciones de coordenadas
+        $this->db->where("gasolinera.latitud <=",$lat_ini);
+        $this->db->where("gasolinera.longitud >=",$lng_ini);
+        
+        $this->db->where("gasolinera.latitud >=",$lat_fin);
+        $this->db->where("gasolinera.longitud <=",$lng_fin);
+        //Fin condiciones de coord
+        
+        $this->db->group_by("gasolinera.idgasolinera");
+        $this->db->order_by("promedio","desc");
+        $this->db->order_by("votos","desc");
+//        $this->db->limit(10);
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $respuesta = array();$x=0;
+        foreach($query->result() as $row){
+            $respuesta[$row->idgasolinera] = $row;
+            $distancia = $this->vincentyGreatCircleDistance($latitud,$longitud,$row->latitud,$row->longitud);
+            $respuesta[$row->idgasolinera]->distancia = $distancia;
+            $distancias[$row->idgasolinera] = $distancia;
+            $distancias_1[$distancia] = $distancia;
+            
+            $x++;
+        }
+        asort($distancias);
+        $x=0;
+        foreach($distancias as $c=>$gasolinera){
+            $response[$x] = $respuesta[$c];
+            $x++;
+        }
+        return $response;
+
+
+    }
+    
+    public function vincentyGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+    {
+      // convert from degrees to radians
+      $latFrom = deg2rad($latitudeFrom);
+      $lonFrom = deg2rad($longitudeFrom);
+      $latTo = deg2rad($latitudeTo);
+      $lonTo = deg2rad($longitudeTo);
+
+      $lonDelta = $lonTo - $lonFrom;
+      $a = pow(cos($latTo) * sin($lonDelta), 2) +
+        pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+      $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
+
+      $angle = atan2(sqrt($a), $b);
+      return $angle * $earthRadius;
+    }
 }
+
 
 ?>

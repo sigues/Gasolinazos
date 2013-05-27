@@ -28,8 +28,8 @@
 		<script src="<?=base_url()?>js/skel.min.js"></script>
 		<script src="<?=base_url()?>js/skel-ui.min.js"></script>
 			<link rel="stylesheet" href="<?=base_url()?>css/skel-noscript.css" />
-			<link rel="stylesheet" href="<?=base_url()?>css/style.css" />
-			<link rel="stylesheet" href="<?=base_url()?>css/style-desktop.css" />
+			<link rel="stylesheet" href="<?=base_url()?>/css/style.css" />
+			<link rel="stylesheet" href="<?=base_url()?>/css/style-desktop.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="<?=base_url()?>css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><script src="<?=base_url()?>js/html5shiv.js"></script><![endif]-->
 	</head>
@@ -116,10 +116,10 @@
 								<nav id="nav">
 									<a href="<?=base_url()?>">Inicio</a>
 									<a href="<?=base_url()?>index.php/gasolineras/buscador">Estaciones</a>
-									<a href="twocolumn1.html">Las Peores</a>
-									<a href="twocolumn1.html">Las Mejores</a>
-									<a href="twocolumn2.html">Noticias</a>
-									<a href="onecolumn.html">Contacto</a>
+									<a href="<?=base_url()?>index.php/gasolineras/las10peores">Las Peores</a>
+									<a href="<?=base_url()?>index.php/gasolineras/las10mejores">Las Mejores</a>
+									<a href="<?=base_url()?>index.php/gasolinazos/noticias">Noticias</a>
+									<a href="<?=base_url()?>index.php/gasolinazos/contacto">Contacto</a>
 								</nav>
 
 						</div>
