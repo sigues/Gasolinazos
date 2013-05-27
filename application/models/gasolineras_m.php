@@ -116,6 +116,7 @@ class Gasolineras_m extends CI_Model {
         $respuesta = array();$x=0;
         foreach($query->result() as $row){
             $respuesta[$x] = $row;
+            $respuesta[$x]->distancia = 0;
             $x++;
         }
         return $respuesta;
