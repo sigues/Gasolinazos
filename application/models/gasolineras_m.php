@@ -118,6 +118,8 @@ class Gasolineras_m extends CI_Model {
         foreach($query->result() as $row){
             $respuesta[$x] = $row;
             $respuesta[$x]->distancia = 0;
+            $reportes = $this->getReportesProfeco($row->idgasolinera);
+            $respuesta[$row->idgasolinera]->reportes = $reportes;
             $x++;
         }
         return $respuesta;

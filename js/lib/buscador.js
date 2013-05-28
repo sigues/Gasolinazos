@@ -220,7 +220,7 @@ function parseDatos(data,buscador){
     }else{
         j=1;
         if(map.markers[1] === undefined){
-            alert("und");
+            console.log("und");
         }else{
             if(data[0].nombre != map.markers[1].getPosition()){ //por alguna razón cuando hay geoloc, el primer marker a veces es 1 y a veces es 2
                 j=2;
