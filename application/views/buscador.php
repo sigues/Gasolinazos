@@ -38,6 +38,7 @@
                             <input type="hidden" id="latitud" value="0" />
                             <input type="hidden" id="longitud" value="0" />
                             <input type="hidden" id="markers" value="0" />
+                            <input type="hidden" id="position" value="false" />
                             
                         </div>
                     
@@ -53,4 +54,4 @@
                 </section>
 
 </div>
-<script src="<?=base_url()?>js/lib/buscador.js"></script>
+<script type="text/javascript" src="<?=base_url()?>js/lib/buscador.js"></script>

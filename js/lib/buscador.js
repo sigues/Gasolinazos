@@ -100,16 +100,31 @@ function cargaDatosMapa(data){
       var markers = new Array();
       for (var i = 0; i < length; i++) {
 //          alert(data[i].latitud+" - "+data[i].longitud);
-          if(data[i].latitud != null && data[i].longitud != null){
+          if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
             var marker = map.addMarker({
+                
               lat: data[i].latitud,
               lng: data[i].longitud,
               title: data[i].estacion,
               icon: "https://maps.google.com/mapfiles/kml/shapes/"+'gas_stations.png',
               infoWindow: {
-                content: '<p>'+data[i].nombre+'<br>'+
-                    '<small>'+data[i].direccion+'</small>'+'</p>'
+                content: '<!--<div id="infowindow_'+data[i].idgasolinera+'"></div><p>'+data[i].nombre+'<br>'+
+                    '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+
+'                        <table border="1" class="calificar">'+
+'                            <tr>'+
+'                                <td><button id="votoMas" class="botonMas">+</button></td>'+
+'                                <td rowspan="2"><span id="promedio"><?=$promedio?></span>%<br>'+
+'                                                <span id="votos"><?=$votos?></span> votos'+
+'                                </td>'+
+'                            </tr>'+
+'                            <tr>'+
+'                                <td><button id="votoMenos" class="botonMenos">-</button></td>'+
+'                            </tr>'+
+'                        </table>'+
+'                    </div>'
+
               }
+              
             });   
             markers[i] = marker;
           }
@@ -145,15 +160,9 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
     pagina = (typeof pagina === "undefined") ? 1 : pagina;
     $("#latitud").val(latitud);
     $("#longitud").val(longitud);
-    var marker = map.addMarker({
-        lat: $("#latitud").val(latitud),
-        lng: $("#longitud").val(longitud),
-        title: "Usted está aquí",
-        icon: "https://maps.google.com/mapfiles/kml/shapes/"+'poi.png',
-        infoWindow: {
-          content: '<p>'+"usted está aquí"+'</p>'
-        }
-    });  
+    $("#position").val("true");
+//    console.log($("#latitud").val(latitud));
+//    console.log($("#longitud").val(longitud));
     $.ajax(
             {
                 url: $("#base_url").val()+"index.php/gasolineras/buscarGasolinerasCoord",
@@ -173,25 +182,58 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
 
 function parseDatos(data,buscador){
     if(buscador=="buscador"){
-        map.setCenter(data[1].latitud,data[1].longitud);
+        map.setCenter(data[0].latitud,data[0].longitud);
     }
     $("#ul-resultados").html("");
     var lenAnt = $("#markers").val();
     if(lenAnt>0){
         map.removeMarkers();
+        $("#position").val("false");
     }
-    
+    if($("#latitud").val()!=0 && $("#longitud").val()!=0){
+        var marker = map.addMarker({
+            lat: $("#latitud").val(),
+            lng: $("#longitud").val(),
+            title: "Usted está aquí",
+            icon: "https://maps.google.com/mapfiles/kml/shapes/"+'poi.png',
+            infoWindow: {
+              content: '<p>'+"usted está aquí"+'</p>'
+            }
+        });  
+        $("#position").val("true");
+    }
     var length = data.length,
         element = null;
         $("#markers").val(length);
     var base_url = $("#base_url").val();
-    for (var i = 0; i < length; i++) {
-      element = data[i];
-      var distancia = data[i].distancia;
-      $("#ul-resultados").append("<li>"+data[i].nombre+" <small><a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#' class='pan-to-marker' data-marker-index='"+(i+1)+"'>Ubicar</a></small>"
-          +"<br><small>"+data[i].direccion+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
+    //original, 1era vez, con geoloc, i = i+2
+    //después del drag i = i+1
+    //sin geoloc, buscar i=0
+    //desupés del drag i = i+1;
+    var j;
+    if($("#position").val()=="false"){
+        j=0;
+    /*    var pos = map.markers[0];
+        if(pos === undefined){ //por alguna razón cuando hay geoloc, el primer marker a veces es 1 y a veces es 2
+            j=1;
+        }*/
+    }else{
+        j=1;
+        if(map.markers[1] === undefined){
+            alert("und");
+        }else{
+            if(data[0].nombre != map.markers[1].getPosition()){ //por alguna razón cuando hay geoloc, el primer marker a veces es 1 y a veces es 2
+                j=2;
+            }
+        }
     }
-    $(document).on('click', '.pan-to-marker', function(e) {
+    for (var i = 0; i < length; i++) {
+      var promedio = data[i].promedio * 100;
+      var reportes_len = data[i].reportes.length;
+      $("#ul-resultados").append("<li>"+data[i].nombre+" <small>"+promedio+"% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
+          +"<br><small>Profeco: "+reportes_len+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
+    }
+    $(document).on('mouseover', '.pan-to-marker', function(e) {
         e.preventDefault();
 
         var lat, lng;

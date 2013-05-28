@@ -91,6 +91,11 @@ class Gasolineras extends CI_Controller {
             $this->load->view('main',$data);
         }
         
+        public function infowindow(){
+            $idgasolinera = $this->input->post("idgasolinera");
+            echo $idgasolinera."<-<br>";
+        }
+        
 }
 
 /* End of file welcome.php */

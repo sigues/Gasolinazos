@@ -107,6 +107,7 @@ class Gasolineras_m extends CI_Model {
                 OR ciudad.nombre like '%$texto%')";
             $this->db->where($where);
         }
+        $this->db->where("latitud is not null");
         $this->db->group_by("gasolinera.idgasolinera");
         $this->db->order_by("promedio","desc");
         $this->db->order_by("votos","desc");
@@ -122,7 +123,7 @@ class Gasolineras_m extends CI_Model {
         return $respuesta;
     }
     
-    function buscarGasolinerasCoord($latitud,$longitud){
+    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.05){
         $lat_ini = $latitud + 0.05;
         $lng_ini = $longitud - 0.05;
         $lat_fin = $latitud - 0.05;
@@ -130,7 +131,8 @@ class Gasolineras_m extends CI_Model {
 
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
-	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio ");
+	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio");
+        
         $this->db->from("gasolinera");
         $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
         $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");
@@ -147,17 +149,23 @@ class Gasolineras_m extends CI_Model {
         $this->db->order_by("votos","desc");
 //        $this->db->limit(10);
         $query = $this->db->get();
-//        echo $this->db->last_query();
         $respuesta = array();$x=0;
+        $distancias=array();
         foreach($query->result() as $row){
             $respuesta[$row->idgasolinera] = $row;
             $distancia = $this->vincentyGreatCircleDistance($latitud,$longitud,$row->latitud,$row->longitud);
             $respuesta[$row->idgasolinera]->distancia = $distancia;
+            $reportes = $this->getReportesProfeco($row->idgasolinera);
+            $respuesta[$row->idgasolinera]->reportes = $reportes;
             $distancias[$row->idgasolinera] = $distancia;
             $distancias_1[$distancia] = $distancia;
             
             $x++;
         }
+        if(sizeof($distancias)==0){
+            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.05);
+        }
+        
         asort($distancias);
         $x=0;
         foreach($distancias as $c=>$gasolinera){
@@ -167,6 +175,18 @@ class Gasolineras_m extends CI_Model {
         return $response;
 
 
+    }
+    
+    public function getReportesProfeco($idgasolinera){
+        $this->db->select("reporte_profeco.*");
+        $this->db->from("reporte_profeco");
+        $this->db->where("gasolinera_idgasolinera",$idgasolinera);
+        $query = $this->db->get();
+        $respuesta = array();
+        foreach($query->result() as $row){
+            $respuesta[] = $row;
+        }
+        return $respuesta;
     }
     
     public function vincentyGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)

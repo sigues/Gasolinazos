@@ -18,4 +18,28 @@ class Gasolinazos extends CI_Controller {
             $this->load->view('main',$data);
         }
         
+        public function regDat(){
+//            var_dump($_POST);
+            $this->load->model("gasolinazos_m");
+            $usuario = $this->gasolinazos_m->getUsuarioByFbid($_POST["id"]);
+            if(sizeof($usuario)==0){
+//                echo "registrando";die();
+                $this->gasolinazos_m->registraUsuario($_POST);
+            }            
+            $usuario = $this->gasolinazos_m->getUsuarioByFbid($_POST["id"]);
+            $this->session->set_userdata($usuario);
+        }
+        
+        public function lo(){
+             $this->session->unset_userdata("fbid");
+        }
+        
+        public function boton(){
+            if($this->session->userdata('fbid')==false){
+                echo '<fb:login-button show-faces="false" width="200" max-rows="1"></fb:login-button>';
+            } else {
+                echo "Hola ".$this->session->userdata("first_name");
+            }
+        }
+        
 }

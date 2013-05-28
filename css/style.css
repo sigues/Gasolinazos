@@ -402,3 +402,8 @@
         #map-canvas{
             height: 100%
         }
+        #fb_loginbutton{
+            float: right;
+            margin-right: 30px;
+            margin-top: 10px
+        }
