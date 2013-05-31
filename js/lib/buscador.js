@@ -230,7 +230,7 @@ function parseDatos(data,buscador){
     for (var i = 0; i < length; i++) {
       var promedio = data[i].promedio * 100;
       var reportes_len = data[i].reportes.length;
-      $("#ul-resultados").append("<li>"+data[i].nombre+" <small>"+promedio+"% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
+      $("#ul-resultados").append("<li>"+data[i].nombre+" <small>"+promedio+"% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
           +"<br><small>Profeco: "+reportes_len+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {
