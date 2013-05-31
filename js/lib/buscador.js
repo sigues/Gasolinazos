@@ -101,12 +101,22 @@ function cargaDatosMapa(data){
       for (var i = 0; i < length; i++) {
 //          alert(data[i].latitud+" - "+data[i].longitud);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
+              var color = "";
+              if(data[i].promedio<=1.00 && data[i].promedio>=0.85){
+                  color = "green";
+              } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
+                  color = "yellow";
+              } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
+                  color = "red";
+              } else {
+                  color = "gray";
+              }
             var marker = map.addMarker({
                 
               lat: data[i].latitud,
               lng: data[i].longitud,
               title: data[i].estacion,
-              icon: "https://maps.google.com/mapfiles/kml/shapes/"+'gas_stations.png',
+              icon: $("#base_url").val()+'images/marker-'+color+'.png',
               infoWindow: {
                 content: '<!--<div id="infowindow_'+data[i].idgasolinera+'"></div><p>'+data[i].nombre+'<br>'+
                     '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+
