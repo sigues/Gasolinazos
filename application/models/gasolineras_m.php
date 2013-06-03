@@ -125,7 +125,7 @@ class Gasolineras_m extends CI_Model {
         return $respuesta;
     }
     
-    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.05,$geolat = 0, $geolng=0){
+    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.02,$geolat = 0, $geolng=0){
         $lat_ini = $latitud + $radio;
         $lng_ini = $longitud - $radio;
         $lat_fin = $latitud - $radio;

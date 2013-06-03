@@ -101,6 +101,7 @@ function cargaDatosMapa(data){
       });*/
       var markers = new Array();
       var reportes = 0;
+     // var bounds = new google.maps.LatLngBounds();
       for (var i = 0; i < length; i++) {
 //          alert(data[i].latitud+" - "+data[i].longitud);
             reportes = data[i].reportes.length;
@@ -152,10 +153,18 @@ function cargaDatosMapa(data){
 
               }
               
-            });   
+            });
+            
+          //  bounds.extend(new google.maps.LatLng(marker.lat, marker.lng));  
+            //if(i <2){
+//                bounds.extend(marker);
+             //   console.log(marker)
+            // }
+//            con++;
             markers[i] = data[i].idgasolinera;
           }
       }
+    //  map.fitLatLngBounds(bounds);
 
       //console.log(markers)
       //http://hpneo.github.io/gmaps/examples/interacting.html
@@ -210,7 +219,7 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
                 },
                 complete: function(strData){
                     var datos = $.parseJSON(strData.responseText);
-                    activarInfowindow(datos); 
+//                    activarInfowindow(datos); 
                 }
             }							
         );
@@ -307,7 +316,6 @@ function parseDatos(data,buscador){
 }
 
 function votar(idgasolinera,tipo){
-    alert(idgasolinera+" "+tipo);
     var voto = 0;
     if(tipo == "mas"){
         voto = 1;
