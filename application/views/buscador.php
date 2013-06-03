@@ -39,7 +39,8 @@
                             <input type="hidden" id="longitud" value="0" />
                             <input type="hidden" id="markers" value="0" />
                             <input type="hidden" id="position" value="false" />
-                            
+                            <input type="hidden" id="geo-lat" value="0" />
+                            <input type="hidden" id="geo-lng" value="0" />
                         </div>
                 </section>
 </div>

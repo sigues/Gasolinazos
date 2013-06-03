@@ -125,7 +125,7 @@ class Gasolineras_m extends CI_Model {
         return $respuesta;
     }
     
-    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.05){
+    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.05,$geolat = 0, $geolng=0){
         $lat_ini = $latitud + $radio;
         $lng_ini = $longitud - $radio;
         $lat_fin = $latitud - $radio;
@@ -153,9 +153,16 @@ class Gasolineras_m extends CI_Model {
         $query = $this->db->get();
         $respuesta = array();$x=0;
         $distancias=array();
+        if($geolat != 0 && $geolng != 0){
+            $dis_lat = $geolat;
+            $dis_lng = $geolng;
+        }else{
+            $dis_lat = $latitud;
+            $dis_lng = $longitud;
+        }
         foreach($query->result() as $row){
             $respuesta[$row->idgasolinera] = $row;
-            $distancia = $this->vincentyGreatCircleDistance($latitud,$longitud,$row->latitud,$row->longitud);
+            $distancia = $this->vincentyGreatCircleDistance($dis_lat,$dis_lng,$row->latitud,$row->longitud);
             $respuesta[$row->idgasolinera]->distancia = $distancia;
             $reportes = $this->getReportesProfeco($row->idgasolinera);
             $respuesta[$row->idgasolinera]->reportes = $reportes;
@@ -165,7 +172,7 @@ class Gasolineras_m extends CI_Model {
             $x++;
         }
         if(sizeof($distancias)==0){
-            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.05);
+            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.05,$geolat, $geolng);
         }
         
         asort($distancias);

@@ -57,6 +57,8 @@ function initialize2(data){
         success: function(position) {
            // alert(position.coords.latitude+", "+position.coords.longitude);
           map.setCenter(position.coords.latitude, position.coords.longitude);
+          $("#geo-lat").val(position.coords.latitude);
+          $("#geo-lng").val(position.coords.longitude);
           var marker = map.addMarker({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
@@ -102,7 +104,7 @@ function cargaDatosMapa(data){
       for (var i = 0; i < length; i++) {
 //          alert(data[i].latitud+" - "+data[i].longitud);
             reportes = data[i].reportes.length;
-            console.log(data[i].reportes);
+//            console.log(data[i].reportes);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
               var color = "";
               if(data[i].promedio==1.00){
@@ -195,7 +197,9 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
                 dataType: "json",
                 data:{
                     latitud:latitud,
-                    longitud:longitud
+                    longitud:longitud,
+                    geolat:$("#geo-lat").val(),
+                    geolng:$("#geo-lng").val()
                 },
                 success: function( data ){
                     parseDatos(data);
@@ -215,10 +219,19 @@ function parseDatos(data,buscador){
         map.removeMarkers();
         $("#position").val("false");
     }
+    var latitud = 0;
+    var longitud = 0;
+    if($("#geo-lat").val() != 0 && $("#geo-lng").val() != 0){
+        latitud = $("#geo-lat").val();
+        longitud = $("#geo-lng").val();
+    }else{
+        latitud = $("#latitud").val();
+        longitud = $("#longitud").val();
+    }
     if($("#latitud").val()!=0 && $("#longitud").val()!=0){
         var marker = map.addMarker({
-            lat: $("#latitud").val(),
-            lng: $("#longitud").val(),
+            lat: latitud,
+            lng: longitud,
             title: "Usted está aquí",
             icon: "https://maps.google.com/mapfiles/kml/shapes/"+'poi.png',
             infoWindow: {
