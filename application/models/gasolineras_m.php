@@ -126,10 +126,10 @@ class Gasolineras_m extends CI_Model {
     }
     
     function buscarGasolinerasCoord($latitud,$longitud,$radio=0.05){
-        $lat_ini = $latitud + 0.05;
-        $lng_ini = $longitud - 0.05;
-        $lat_fin = $latitud - 0.05;
-        $lng_fin = $longitud + 0.05;
+        $lat_ini = $latitud + $radio;
+        $lng_ini = $longitud - $radio;
+        $lat_fin = $latitud - $radio;
+        $lng_fin = $longitud + $radio;
 
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
@@ -183,6 +183,7 @@ class Gasolineras_m extends CI_Model {
         $this->db->select("reporte_profeco.*");
         $this->db->from("reporte_profeco");
         $this->db->where("gasolinera_idgasolinera",$idgasolinera);
+        $this->db->order_by("semaforo","desc");
         $query = $this->db->get();
         $respuesta = array();
         foreach($query->result() as $row){

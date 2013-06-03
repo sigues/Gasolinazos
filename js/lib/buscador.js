@@ -98,18 +98,33 @@ function cargaDatosMapa(data){
         }
       });*/
       var markers = new Array();
+      var reportes = 0;
       for (var i = 0; i < length; i++) {
 //          alert(data[i].latitud+" - "+data[i].longitud);
+            reportes = data[i].reportes.length;
+            console.log(data[i].reportes);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
               var color = "";
-              if(data[i].promedio<=1.00 && data[i].promedio>=0.85){
+              if(data[i].promedio==1.00){
+                  color = "star";
+              } else if(data[i].promedio<1.00 && data[i].promedio>=0.85){
                   color = "green";
               } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
                   color = "yellow";
               } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
                   color = "red";
               } else {
-                  color = "gray";
+                  if(reportes>0){
+                      if(data[i].reportes[0].semaforo==3){
+                          color = "red";
+                      }else if(data[i].reportes[0].semaforo==2){
+                          color = "yellow";
+                      }else if(data[i].reportes[0].semaforo==1){
+                          color = "green";
+                      }
+                  }else{
+                      color = "gray";
+                  }
               }
             var marker = map.addMarker({
                 
