@@ -139,13 +139,13 @@ function cargaDatosMapa(data){
                     '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+
 '                        <table border="1" class="calificar">'+
 '                            <tr>'+
-'                                <td><button id="votoMas" class="botonMas">+</button></td>'+
-'                                <td rowspan="2"><span id="promedio"><?=$promedio?></span>%<br>'+
-'                                                <span id="votos"><?=$votos?></span> votos'+
+'                                <td><button id="votoMas_'+data[i].idgasolinera+'" class="botonMas" onclick="votar('+data[i].idgasolinera+',\'mas\')">+</button></td>'+
+'                                <td rowspan="2"><span id="promedio_voto_'+data[i].idgasolinera+'">'+(data[i].promedio*100)+'</span>%<br>'+
+'                                                <span id="votos_voto_'+data[i].idgasolinera+'">'+data[i].votos+'</span> votos'+
 '                                </td>'+
 '                            </tr>'+
 '                            <tr>'+
-'                                <td><button id="votoMenos" class="botonMenos">-</button></td>'+
+'                                <td><button id="votoMenos_'+data[i].idgasolinera+'" class="botonMenos" onclick="votar('+data[i].idgasolinera+',\'menos\')"  >-</button></td>'+
 '                            </tr>'+
 '                        </table>'+
 '                    </div>'
@@ -153,9 +153,10 @@ function cargaDatosMapa(data){
               }
               
             });   
-            markers[i] = marker;
+            markers[i] = data[i].idgasolinera;
           }
       }
+
       //console.log(markers)
       //http://hpneo.github.io/gmaps/examples/interacting.html
   }
@@ -178,6 +179,8 @@ function buscarGasolineras(pagina){
                 },
                 success: function( data ){
                     parseDatos(data,"buscador");
+                //    console.log(data);
+//                    activarInfowindow(data);
                 }
             }							
         );
@@ -203,6 +206,11 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
                 },
                 success: function( data ){
                     parseDatos(data);
+                    var datos = data;
+                },
+                complete: function(strData){
+                    var datos = $.parseJSON(strData.responseText);
+                    activarInfowindow(datos); 
                 }
             }							
         );
@@ -268,7 +276,7 @@ function parseDatos(data,buscador){
     for (var i = 0; i < length; i++) {
       var promedio = data[i].promedio * 100;
       var reportes_len = data[i].reportes.length;
-      $("#ul-resultados").append("<li>"+data[i].nombre+" <small>"+promedio+"% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
+      $("#ul-resultados").append("<li>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
           +"<br><small>Profeco: "+reportes_len+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {
@@ -295,5 +303,33 @@ function parseDatos(data,buscador){
         map.setCenter(lat, lng);
       });
     cargaDatosMapa(data);
-    return;
+    return true;
+}
+
+function votar(idgasolinera,tipo){
+    alert(idgasolinera+" "+tipo);
+    var voto = 0;
+    if(tipo == "mas"){
+        voto = 1;
+    }else if (tipo == "menos"){
+        voto = 0;
+    }
+    $.ajax(
+    {
+        url: $("#base_url").val()+"index.php/gasolinera/voto",
+        type: "post",
+        dataType: "json",
+        data:{
+            voto:voto,
+            gasolinera:idgasolinera
+        },
+        success: function( strData ){
+                var promedio = strData.promedio*100;
+                $("#promedio_"+idgasolinera).html( promedio.toFixed(2) );
+                $("#promedio_voto_"+idgasolinera).html( promedio.toFixed(2) );
+                $("#votos_"+idgasolinera).html( strData.votos );
+                $("#votos_voto_"+idgasolinera).html( strData.votos );
+        }
+    }							
+    );
 }
