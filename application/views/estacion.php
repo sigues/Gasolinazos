@@ -135,7 +135,7 @@
                             <?php for($x=1;$x<=10;$x++){
                                 ?>
                                     <li>
-                                        <a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$li_gasolinera->estacion?>"><?=$li_gasolinera->estacion?></a>
+                                        <a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$gasolineras[$x]->estacion?>"><?=$gasolineras[$x]->estacion?></a> <small><?=number_format($gasolineras[$x]->distancia,2)?> metros</small>
                                     </li>
                                 <? } ?>
                         </ul>
