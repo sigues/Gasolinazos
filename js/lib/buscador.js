@@ -108,9 +108,9 @@ function cargaDatosMapa(data){
 //            console.log(data[i].reportes);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
               var color = "";
-              if(data[i].promedio==1.00){
+              /*if(data[i].promedio==1.00){
                   color = "star";
-              } else if(data[i].promedio<1.00 && data[i].promedio>=0.85){
+              } else */if(data[i].promedio<=1.00 && data[i].promedio>=0.85){
                   color = "green";
               } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
                   color = "yellow";

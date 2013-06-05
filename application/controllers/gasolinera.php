@@ -7,6 +7,7 @@ class Gasolinera extends CI_Controller {
             $estacion = $this->uri->segment(3);
             $this->load->model('gasolinera_m');
             $this->load->model('reporte_profeco');
+            $this->load->model('gasolineras_m');
             
             $data["estacion"] = $this->gasolinera_m->getGasolineraByEstacion($estacion);
             $data["productos"] = $this->gasolinera_m->getProductosByIdgasolinera($data["estacion"]["idgasolinera"]);
@@ -15,6 +16,7 @@ class Gasolinera extends CI_Controller {
             $data["promedio"] = $promedio->promedio*100;
             $data["votos"] = $promedio->votos;
             $data["gasolineras"] = $this->gasolinera_m->getGasolineras();
+            $data["gasolineras"] = $this->gasolineras_m->buscarGasolinerasCoord($data["estacion"]["latitud"],$data["estacion"]["longitud"]);
             //var_dump($gasolineras);
             $data["content"] = $this->load->view('estacion',$data,true);
             $this->load->view('main',$data);

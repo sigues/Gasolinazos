@@ -14,7 +14,6 @@
                                     echo "<a href='http://webapps.profeco.gob.mx/verificacion/gasolina/gasolinera01.asp?IdEs=".$reporte->idprofeco."' target='_blank'>Alerta ".$semaforo[$reporte->semaforo]." del día ".date("d-m-Y",strtotime($reporte->fecha))."</a><br>";
                                 }
                             ?>
-                            
                             <table width="100%">
                                 <tr>
                                     <td><b>Productos:</b></td>
@@ -51,18 +50,31 @@
                         </p>
                         
                         <p>
+                            
+                            <input type="hidden" id="latitud" value="<?=$estacion["latitud"]?>" />
+                            <input type="hidden" id="longitud" value="<?=$estacion["longitud"]?>" />
+                            <input type="hidden" id="markers" value="0" />
+                            <input type="hidden" id="position" value="false" />
+                            <input type="hidden" id="geo-lat" value="0" />
+                            <input type="hidden" id="geo-lng" value="0" />
+                            <input type="hidden" id="base_url" value="<?=base_url()?>" />
+                            <input type="hidden" id="estacion" value="<?=$estacion["estacion"]?>" />
+                            <input type="hidden" id="idgasolinera" value="<?=$estacion["idgasolinera"]?>" />
+                            <section id="mapa">
+                                <div id="map-canvas"></div>
+                            </section>
                             <?php
                                 $cadena_mapa = ltrim(substr($estacion["estacion"],1),"0");
                                // echo $cadena_mapa;
                             ?>
-                            <iframe width="825" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+                       <!--     <iframe width="825" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
                             src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=PEMEX-<?=trim($cadena_mapa)?>,+<?=trim($estacion["nombre_ciudad"])?>,+<?=trim($estacion["nombre_estado"])?>&amp;aq=
                             &amp;t=h&amp;ie=UTF8&amp;hq=PEMEX-<?=trim($cadena_mapa)?>,&amp;hnear=,+<?=trim($estacion["nombre_ciudad"])?>,+<?=trim($estacion["nombre_estado"])?>,+Mexico
                             &amp;spn=0.031955,0.061283&amp;output=embed"></iframe>
                             <br /><small>
                             <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=PEMEX-<?=$cadena_mapa?>,+tijuana&amp;aq=&amp;sll=37.0625,-95.677068
                             &amp;sspn=37.136668,86.572266&amp;t=h&amp;ie=UTF8&amp;hq=PEMEX-<?=$cadena_mapa?>,&amp;hnear=Tijuana,+Baja+California,+Mexico&amp;ll=32.529472,-117.010391
-                            &amp;spn=0.031955,0.061283" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+                            &amp;spn=0.031955,0.061283" style="color:#0000FF;text-align:left">View Larger Map</a></small> !-->
 
                         </p>
                             <div class="fb-comments" data-href="http://www.gasolinazos.com" data-width="825" data-num-posts="10">
@@ -116,13 +128,16 @@
                 </section>
                 <section>
                         <header>
-                                <h2>Otras gasolineras:</h2>
+                                <h2>Gasolineras cercanas:</h2>
                         </header>
                         
                         <ul class="link-list">
-                            <?php foreach($gasolineras as $li_gasolinera){ ?>
-                                <li><a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$li_gasolinera->estacion?>"><?=$li_gasolinera->estacion?></a></li>
-                            <?php } ?>
+                            <?php for($x=1;$x<=10;$x++){
+                                ?>
+                                    <li>
+                                        <a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$li_gasolinera->estacion?>"><?=$li_gasolinera->estacion?></a>
+                                    </li>
+                                <? } ?>
                         </ul>
                 </section>
 
