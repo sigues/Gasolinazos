@@ -60,7 +60,7 @@ echo "Hola ".$this->session->userdata("first_name");
 }
 ?>
 </div>
-
+<input id="base_url" value="<?=base_url()?>" type="hidden" />
 		<!-- Header -->
 			<div id="header-wrapper">
 				<header id="header" class="container">
@@ -68,7 +68,7 @@ echo "Hola ".$this->session->userdata("first_name");
 						<div class="12u">
 
 							<!-- Logo -->
-								<h1><a href="#" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a></h1>
+								<h1><!--<a href="#" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a>!-->Gasolinazos.com</h1>
 							
 							<!-- Nav -->
 								<nav id="nav">
@@ -122,70 +122,13 @@ echo "Hola ".$this->session->userdata("first_name");
 			</div>
 
 		<!-- Footer -->
-			<div id="footer-wrapper">
-				<footer id="footer" class="container">
-					<div class="row">
-						<div class="8u">
-						
-							<!-- Links -->
-								<section>
-									<h2>Links to Important Stuff</h2>
-									<div>
-										<div class="row">
-											<div class="3u">
-												<ul class="link-list last-child">
-													<li><a href="#">Neque amet dapibus</a></li>
-													<li><a href="#">Sed mattis quis rutrum</a></li>
-													<li><a href="#">Accumsan suspendisse</a></li>
-													<li><a href="#">Eu varius vitae magna</a></li>
-												</ul>
-											</div>
-											<div class="3u">
-												<ul class="link-list last-child">
-													<li><a href="#">Neque amet dapibus</a></li>
-													<li><a href="#">Sed mattis quis rutrum</a></li>
-													<li><a href="#">Accumsan suspendisse</a></li>
-													<li><a href="#">Eu varius vitae magna</a></li>
-												</ul>
-											</div>
-											<div class="3u">
-												<ul class="link-list last-child">
-													<li><a href="#">Neque amet dapibus</a></li>
-													<li><a href="#">Sed mattis quis rutrum</a></li>
-													<li><a href="#">Accumsan suspendisse</a></li>
-													<li><a href="#">Eu varius vitae magna</a></li>
-												</ul>
-											</div>
-											<div class="3u">
-												<ul class="link-list last-child">
-													<li><a href="#">Neque amet dapibus</a></li>
-													<li><a href="#">Sed mattis quis rutrum</a></li>
-													<li><a href="#">Accumsan suspendisse</a></li>
-													<li><a href="#">Eu varius vitae magna</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</section>
-
-						</div>
-						<div class="4u">
-							
-							<!-- Blurb -->
-								<section>
-									<h2>An Informative Text Blurb</h2>
-									<p>
-										Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. Suspendisse eu 
-										varius nibh. Suspendisse vitae magna eget odio amet mollis. Duis neque nisi, 
-										dapibus sed mattis quis, sed rutrum accumsan sed. Suspendisse eu varius nibh 
-										lorem ipsum amet dolor sit amet lorem ipsum consequat gravida justo mollis.
-									</p>
-								</section>
-						
-						</div>
-					</div>
-				</footer>
-			</div>
+			<?
+                        if(!isset($footer)){
+                            $footer = $this->load->view("footer","",true);
+                            echo $footer;
+                        }
+                        
+                        ?>
 
 		<!-- Copyright -->
 			<div id="copyright">

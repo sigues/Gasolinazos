@@ -399,6 +399,14 @@
 /*            background: #aade7c;*/
             float: right;
         }
+        #mapas{
+           padding-right:15px;
+            margin-left:10px;
+            width:450px;
+            height:450px;
+/*            background: #aade7c;*/
+           
+        }
         #map-canvas{
             height: 100%
         }

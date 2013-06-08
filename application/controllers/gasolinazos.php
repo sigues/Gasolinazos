@@ -2,6 +2,21 @@
 
 class Gasolinazos extends CI_Controller {
 
+        public function index(){
+            $data="";
+            $this->load->library('user_agent');
+            if(!$this->agent->is_mobile()){
+               /* $data["content"] = $this->load->view('movil',$data,true);
+                $data["footer"] = true;
+                $this->load->view('main',$data);*/
+                $this->load->view('movil/test1');
+            } else {
+                $this->load->view('principal',$data);
+            }
+            
+            //$data["content"] = $this->load->view('principal',$data,true);
+        }
+        
 	public function noticias()
 	{
             $estacion = $this->uri->segment(3);
