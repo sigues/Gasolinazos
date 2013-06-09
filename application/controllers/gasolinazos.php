@@ -4,10 +4,12 @@ class Gasolinazos extends CI_Controller {
 
 	public function noticias()
 	{
-            $estacion = $this->uri->segment(3);
+            $pagina = $this->uri->segment(3);
             $this->load->model('noticias_m');
             
             $data["noticias"] = $this->noticias_m->getNoticias();
+            $data["noticiasSidebar"] = $this->noticias_m->getNoticiasSidebar();
+            
             $data["content"] = $this->load->view('noticias',$data,true);
             $this->load->view('main',$data);
 	}
