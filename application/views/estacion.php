@@ -136,6 +136,7 @@
                                 ?>
                                     <li>
                                         <a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$gasolineras[$x]->estacion?>"><?=$gasolineras[$x]->estacion?></a> <small><?=number_format($gasolineras[$x]->distancia,2)?> metros</small>
+                                        <br><small><?=$gasolineras[$x]->direccion?></small>
                                     </li>
                                 <? } ?>
                         </ul>
