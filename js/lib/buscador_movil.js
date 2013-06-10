@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    /*readyEstado();
-    $("#buscar").click(function(n){
+    readyEstado();
+   /* $("#buscar").click(function(n){
         buscarGasolineras();
     });*/
     if(initialize2()==true){
         $(".layer2").hide();
     }
-    $("#header").click(function(){
-        $("#buscador").show().animate({height:'25%'}, 500);
+    $("#boton_buscar").click(function(){
+        $("#buscador").slideToggle(500);//toggle().animate({height:'15%'}, 500);
     })
 });
 
@@ -293,7 +293,29 @@ function parseDatos(data,buscador){
     for (var i = 0; i < length; i++) {
       var promedio = data[i].promedio * 100;
       var reportes_len = data[i].reportes.length;
-      $("#ul-resultados").append("<li>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
+      var color = "";
+        /*if(data[i].promedio==1.00){
+            color = "star";
+        } else */if(data[i].promedio<=1.00 && data[i].promedio>=0.85){
+            color = "green";
+        } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
+            color = "yellow";
+        } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
+            color = "red";
+        } else {
+            if(reportes>0){
+                if(data[i].reportes[0].semaforo==3){
+                    color = "red";
+                }else if(data[i].reportes[0].semaforo==2){
+                    color = "yellow";
+                }else if(data[i].reportes[0].semaforo==1){
+                    color = "green";
+                }
+            }else{
+                color = "gray";
+            }
+        }
+      $("#ul-resultados").append("<li class='"+color+"'>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
           +"<br><small>Profeco: "+reportes_len+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {

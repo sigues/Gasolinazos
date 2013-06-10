@@ -151,6 +151,7 @@ class Gasolineras_m extends CI_Model {
         $this->db->order_by("votos","desc");
 //        $this->db->limit(10);
         $query = $this->db->get();
+        //echo $this->db->last_query();
         $respuesta = array();$x=0;
         $distancias=array();
         if($geolat != 0 && $geolng != 0){
@@ -171,14 +172,14 @@ class Gasolineras_m extends CI_Model {
             
             $x++;
         }
-        if(sizeof($distancias)==0){
-            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.05,$geolat, $geolng);
+        if(sizeof($distancias)<=5){
+            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.02,$geolat, $geolng);
         }
         
         asort($distancias);
         $x=0;
         foreach($distancias as $c=>$gasolinera){
-            if($x<20){
+            if($x<20 || ($latitud != $geolat || $longitud != $geolng)){
             $response[$x] = $respuesta[$c];
             } else {
                 break(1);
