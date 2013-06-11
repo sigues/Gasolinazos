@@ -122,7 +122,7 @@ function cargaDatosMapa(data){
                   color = "green";
               } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
                   color = "yellow";
-              } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
+              } else if (data[i].promedio<0.65 && data[i].promedio>=0.00 && data[i].votos>0){
                   color = "red";
               } else {
                   if(reportes>0){
@@ -303,7 +303,7 @@ function parseDatos(data,buscador){
         } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
             color = "red";
         } else {
-            if(reportes>0){
+            if(reportes_len>0){
                 if(data[i].reportes[0].semaforo==3){
                     color = "red";
                 }else if(data[i].reportes[0].semaforo==2){
