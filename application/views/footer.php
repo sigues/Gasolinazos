@@ -49,12 +49,12 @@
 							
 							<!-- Blurb -->
 								<section>
-									<h2>An Informative Text Blurb</h2>
+									<h2>¿Qué es Gasolinazos.com?</h2>
 									<p>
-										Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. Suspendisse eu 
-										varius nibh. Suspendisse vitae magna eget odio amet mollis. Duis neque nisi, 
-										dapibus sed mattis quis, sed rutrum accumsan sed. Suspendisse eu varius nibh 
-										lorem ipsum amet dolor sit amet lorem ipsum consequat gravida justo mollis.
+Gasolinazos.com es una alternativa a las revisiones de Litros de a Litro de la PROFECO, es una forma con la cual, 
+entre los ciudadanos podemos apoyarnos informándonos cuales son las gasolineras que ofrecen el mejor servicio.
+El proyecto surge debido a que las revisiones de PROFECO solo se hacen en muy pocas gasolineras y reportan muchas fallas,
+...
 									</p>
 								</section>
 						

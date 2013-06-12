@@ -1,8 +1,14 @@
 $(document).ready(function() {
+    var width = $(window).width();
+    var height = $(window).height();
+    $("#body").width(width);
+    $("#body").height(height);
+    
+    
     readyEstado();
-   /* $("#buscar").click(function(n){
+    $("#buscar").click(function(n){
         buscarGasolineras();
-    });*/
+    });
     if(initialize2()==true){
         $(".layer2").hide();
     }
@@ -145,7 +151,7 @@ function cargaDatosMapa(data){
               icon: $("#base_url").val()+'images/marker-'+color+'.png',
               infoWindow: {
                 content: '<!--<div id="infowindow_'+data[i].idgasolinera+'"></div><p>'+data[i].nombre+'<br>'+
-                    '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+
+                    '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+'<a href="'+$("#base_url").val()+'/index.php/gasolinera/estacion/'+data[i].estacion+'/ruta">Calcular Ruta</a>'+
 '                        <table border="1" class="calificar">'+
 '                            <tr>'+
 '                                <td><button id="votoMas_'+data[i].idgasolinera+'" class="botonMas" onclick="votar('+data[i].idgasolinera+',\'mas\')">+</button></td>'+

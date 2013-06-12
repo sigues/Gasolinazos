@@ -82,11 +82,21 @@ function initialize2(data){
               lng: position.coords.longitude,
               title: "Usted está aquí",
               icon: "https://maps.google.com/mapfiles/kml/shapes/"+'poi.png',
+              draggable:true,
               infoWindow: {
                 content: '<p>'+"usted está aquí"+'</p>'
               }
-            });  
-          //buscarGasolinerasCoord(position.coords.latitude, position.coords.longitude,estacion);
+            });
+            google.maps.event.addListener(marker, 'dragend', function() {
+                map.removePolylines();
+                var position = marker.getPosition();
+                var lat = position.lat();
+                var lng = position.lng();
+                $("#geo-lat").val(lat);
+                $("#geo-lng").val(lng);
+                trazaRuta();
+            });
+            trazaRuta();
         },
         error: function(error) {
           console.log('Geolocation failed: '+error.message);
@@ -101,4 +111,33 @@ function initialize2(data){
       });
         
   return;
+}
+function trazaRuta(){
+    //if($("#ruta").val()=="true"){
+        map.drawRoute({
+            origin: [$("#geo-lat").val(), $("#geo-lng").val()],
+            destination: [$("#latitud").val(),$("#longitud").val()],
+            travelMode: 'driving',
+            strokeColor: '#131540',
+            strokeOpacity: 0.6,
+            strokeWeight: 6
+          });
+          var i=0;var clase="";
+         map.travelRoute({
+            origin: [$("#geo-lat").val(), $("#geo-lng").val()],
+            destination: [$("#latitud").val(),$("#longitud").val()],
+            travelMode: 'driving',
+            step: function(e) {
+                if(i==0){
+                    clase="non";
+                    i=1;
+                }else{
+                    clase="par";
+                    i=0;
+                }
+              $('#instrucciones').append('<li class="'+clase+'">'+e.instructions+'</li>');
+              $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number);
+            }
+          });
+    //}
 }

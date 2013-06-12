@@ -55,7 +55,13 @@
 
 </div>
 <div class="9u">
+    
     <section id="mapa">
+        <div id="altaGasolinera" style="display:none">
+            Introduce el número de la gasolinera:
+            <input type=text value="" id="nuevaEstacion"/> 
+            <button class="botonMas" id="btnAltaGasolinera">Enviar</button></div>
+        <div id="gracias" style="display:none"><h1>Gracias!!</h1></div>
         <div id="map-canvas"></div>
     </section>
 </div>
@@ -63,4 +69,4 @@
                         
 
 </div>
-<script type="text/javascript" src="<?=base_url()?>js/lib/buscador.js"></script>
+<script type="text/javascript" src="<?=base_url()?>js/lib/buscador.js?t=<?=rand(0,1000)?>"></script>

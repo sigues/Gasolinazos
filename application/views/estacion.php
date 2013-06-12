@@ -60,9 +60,10 @@
                             <input type="hidden" id="base_url" value="<?=base_url()?>" />
                             <input type="hidden" id="estacion" value="<?=$estacion["estacion"]?>" />
                             <input type="hidden" id="idgasolinera" value="<?=$estacion["idgasolinera"]?>" />
-                            <section id="mapa">
+                            <input type="hidden" id="ruta" value="<?=$ruta?>" />
+                            <div id="mapa">
                                 <div id="map-canvas"></div>
-                            </section>
+                            </div>
                             <?php
                                 $cadena_mapa = ltrim(substr($estacion["estacion"],1),"0");
                                // echo $cadena_mapa;
@@ -77,6 +78,8 @@
                             &amp;spn=0.031955,0.061283" style="color:#0000FF;text-align:left">View Larger Map</a></small> !-->
 
                         </p>
+                        <ul id="instrucciones"></ul>
+                        <br><br>
                             <div class="fb-comments" data-href="http://www.gasolinazos.com" data-width="825" data-num-posts="10">
                                 
                             </div>                       
@@ -133,12 +136,14 @@
                         
                         <ul class="link-list">
                             <?php for($x=1;$x<=10;$x++){
+                                if(isset($gasolineras[$x])){
                                 ?>
                                     <li>
                                         <a href="<?=base_url()?>index.php/gasolinera/estacion/<?=$gasolineras[$x]->estacion?>"><?=$gasolineras[$x]->estacion?></a> <small><?=number_format($gasolineras[$x]->distancia,2)?> metros</small>
                                         <br><small><?=$gasolineras[$x]->direccion?></small>
                                     </li>
-                                <? } ?>
+                                <? } 
+                            }?>
                         </ul>
                 </section>
 
