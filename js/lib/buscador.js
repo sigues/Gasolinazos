@@ -121,28 +121,8 @@ function cargaDatosMapa(data){
             reportes = data[i].reportes.length;
 //            console.log(data[i].reportes);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
-              var color = "";
-              /*if(data[i].promedio==1.00){
-                  color = "star";
-              } else */if(data[i].promedio<=1.00 && data[i].promedio>=0.85){
-                  color = "green";
-              } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
-                  color = "yellow";
-              } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
-                  color = "red";
-              } else {
-                  if(reportes>0){
-                      if(data[i].reportes[0].semaforo==3){
-                          color = "red";
-                      }else if(data[i].reportes[0].semaforo==2){
-                          color = "yellow";
-                      }else if(data[i].reportes[0].semaforo==1){
-                          color = "green";
-                      }
-                  }else{
-                      color = "gray";
-                  }
-              }
+              var color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
+      
             var marker = map.addMarker({
                 
               lat: data[i].latitud,
@@ -330,28 +310,9 @@ function parseDatos(data,buscador){
       var promedio = data[i].promedio * 100;
       var reportes_len = data[i].reportes.length;
       var color = "";
-        /*if(data[i].promedio==1.00){
-            color = "star";
-        } else */if(data[i].promedio<=1.00 && data[i].promedio>=0.85){
-            color = "green";
-        } else if (data[i].promedio<0.85 && data[i].promedio>=0.65){
-            color = "yellow";
-        } else if (data[i].promedio<0.65 && data[i].promedio>=0.01){
-            color = "red";
-        } else {
-            if(reportes_len>0){
-                if(data[i].reportes[0].semaforo==3){
-                    color = "red";
-                }else if(data[i].reportes[0].semaforo==2){
-                    color = "yellow";
-                }else if(data[i].reportes[0].semaforo==1){
-                    color = "green";
-                }
-            }else{
-                color = "gray";
-            }
-        }
-      $("#ul-resultados").append("<li class='"+color+"'>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
+      
+      color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
+       $("#ul-resultados").append("<li class='"+color+"'>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
           +"<br><small>Profeco: "+reportes_len+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {
@@ -428,4 +389,52 @@ function guardaGasolinera(){
             $('#gracias').fadeIn(400).delay(2000).slideUp(300);
         }
     });
+}
+
+function calculaColor(promedio,votos,reportes){
+    var color = "";
+    var reportes_len = reportes.length;
+    if($('#gasolinazos').is(':checked')){
+        if(promedio<=1.00 && promedio>=0.85){
+            color = "green";
+        } else if (promedio<0.85 && promedio>=0.65){
+            color = "yellow";
+        } else if (promedio<0.65 && promedio>=0.01){
+            color = "red";
+        } else {
+            if(reportes_len>0){
+                if(reportes[0].semaforo==3){
+                    color = "red";
+                }else if(reportes[0].semaforo==2){
+                    color = "yellow";
+                }else if(reportes[0].semaforo==1){
+                    color = "green";
+                }
+            }else{
+                color = "gray";
+            }
+        }
+    }else{
+        if(reportes_len>0){
+            if(reportes[0].semaforo==3){
+                color = "red";
+            }else if(reportes[0].semaforo==2){
+                color = "yellow";
+            }else if(reportes[0].semaforo==1){
+                color = "green";
+            }
+        }else{
+            if(promedio<=1.00 && promedio>=0.85){
+                color = "green";
+            } else if (promedio<0.85 && promedio>=0.65){
+                color = "yellow";
+            } else if ((promedio<0.65 && promedio>=0.01) || (promedio==0 && votos>0)){
+                color = "red";
+            } else {
+                color = "gray";
+            }
+        }
+    }
+       
+        return color;
 }
