@@ -114,6 +114,7 @@ function initialize2(data){
 }
 function trazaRuta(){
     //if($("#ruta").val()=="true"){
+    $('#instrucciones').html("");
         map.drawRoute({
             origin: [$("#geo-lat").val(), $("#geo-lng").val()],
             destination: [$("#latitud").val(),$("#longitud").val()],
@@ -136,7 +137,7 @@ function trazaRuta(){
                     i=0;
                 }
               $('#instrucciones').append('<li class="'+clase+'">'+e.instructions+'</li>');
-              $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number);
+              $('#instrucciones li:eq(' + e.step_number + ')').delay(450 * e.step_number);
             }
           });
     //}
