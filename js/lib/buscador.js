@@ -10,6 +10,13 @@ $(document).ready(function() {
     $(function() {
         $( document ).tooltip();
     });
+    
+    $('[name="filtros"]').change(function(){
+        if($("#geo-lat").val() != 0 && $("#geo-lng").val()!= 0){
+                    buscarGasolinerasCoord($("#geo-lat").val(), $("#geo-lng").val());
+
+        }
+    });
 });
 
 function readyEstado(){
