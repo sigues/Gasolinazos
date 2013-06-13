@@ -28,8 +28,8 @@
 		<script src="<?=base_url()?>js/skel.min.js"></script>
 		<script src="<?=base_url()?>js/skel-ui.min.js"></script>
 			<link rel="stylesheet" href="<?=base_url()?>css/skel-noscript.css" />
-			<link rel="stylesheet" href="<?=base_url()?>/css/style.css" />
-			<link rel="stylesheet" href="<?=base_url()?>/css/style-desktop.css" />
+			<link rel="stylesheet" href="<?=base_url()?>css/style.css" />
+			<link rel="stylesheet" href="<?=base_url()?>css/style-desktop.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="<?=base_url()?>css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><script src="<?=base_url()?>js/html5shiv.js"></script><![endif]-->
 	</head>

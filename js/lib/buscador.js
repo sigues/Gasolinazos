@@ -200,6 +200,7 @@ function buscarGasolineras(pagina){
                 },
                 success: function( data ){
                     parseDatos(data,"buscador");
+                    map.setZoom(13);
                 //    console.log(data);
 //                    activarInfowindow(data);
                 }
@@ -240,7 +241,18 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
 
 function parseDatos(data,buscador){
     if(buscador=="buscador"){
-        map.setCenter(data[0].latitud,data[0].longitud);
+        var latitud = 0;
+        var longitud = 0;
+        var length_b = data.length;
+        for(var i = 0;i<length_b;i++){
+            latitud += parseFloat(data[i].latitud);
+            longitud += parseFloat(data[i].longitud);
+            
+        }
+        var center_lat = latitud / data.length;
+        var center_lng = longitud / data.length;
+        console.log(center_lat+", "+center_lng);
+        map.setCenter(center_lat.toString(),center_lng.toString());
     }
     $("#ul-resultados").html("");
     var lenAnt = $("#markers").val();
@@ -253,11 +265,14 @@ function parseDatos(data,buscador){
     if($("#geo-lat").val() != 0 && $("#geo-lng").val() != 0){
         latitud = $("#geo-lat").val();
         longitud = $("#geo-lng").val();
-    }else{
+    } else if(buscador=="buscador"){
+        latitud = center_lat.toString();
+        longitud = center_lng.toString();
+    } else{
         latitud = $("#latitud").val();
         longitud = $("#longitud").val();
     }
-    if($("#latitud").val()!=0 && $("#longitud").val()!=0){
+    if(($("#latitud").val()!=0 && $("#longitud").val()!=0) || (center_lat!= 0 && center_lng!= 0)){
         var marker = map.addMarker({
             lat: latitud,
             lng: longitud,
