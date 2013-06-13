@@ -29,12 +29,30 @@
                                     <option value="0"> - Seleccionar - </option>
                                 </select>
                             </div>
-                            <div id="div-boton">
-                                <button id="buscar">Buscar</button>
-                            </div><br>
                             <div id="div-texto">
                                 <label for="buscador-texto">Texto libre: </label> <input type="text" id="buscador-texto" />
                             </div>
+                            <br>
+                            <div id="filtros" style="vertical-align:top">
+                                <b title="Prioridad en los colores, elija a que filtro dar prioridad">Colores:</b><br>
+                                <label for="profeco" title="Si elige PROFECO se dará prioridad a las verificaciones de Litros de a litro">PROFECO</label> <input type="radio" value="profeco" id="profeco" name="filtros" />
+                                <label for="gasolinazos" title="Si elige Gasolinazos.com se dará prioridad a las calificaciones de los usuarios">Gasolinazos.com</label> <input type="radio" value="gasolinazos" id="gasolinazos" name="filtros" />
+                            </div>
+                            <div id="Servicios">
+                                <b title="Elija los servicios que deben tener las gasolineras que busca">Servicios:</b><br>
+                                <label for="premium" title="Gasolina Premium">Premium</label> <input type="checkbox" value="" id="premium" name="premium" />
+                                <label for="magna" title="Gasolina Magna">Magna</label> <input type="checkbox" value="" id="magna" name="magna" /><br>
+                                <label for="diesel" title="Diesel">Diesel</label> <input type="checkbox" value="" id="diesel" name="diesel" />
+                                <label for="dme" title="Diesel Marítimo">Diesel Marítimo</label> <input type="checkbox" value="" id="dme" name="dme" /><br>
+                                <label for="cualli" title="Servicio Cualli">Cualli</label> <input type="checkbox" value="" id="cualli" name="cualli" />
+                                <label for="vpm" title="Ventas de primera mano">VPM</label> <input type="checkbox" value="" id="vpm" name="vpm" /><br>
+                                
+                            </div>
+                            <br><br>
+                            <div id="div-boton" style="margin-bottom:10px;">
+                                <button id="buscar" class="botonMas">Buscar</button>
+                            </div>
+                            
                             <input type="hidden" id="latitud" value="0" />
                             <input type="hidden" id="longitud" value="0" />
                             <input type="hidden" id="markers" value="0" />

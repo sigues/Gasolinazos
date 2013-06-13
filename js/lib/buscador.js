@@ -7,7 +7,9 @@ $(document).ready(function() {
         guardaGasolinera();
     });
     initialize2();
-    
+    $(function() {
+        $( document ).tooltip();
+    });
 });
 
 function readyEstado(){

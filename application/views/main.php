@@ -19,7 +19,9 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<script src="<?=base_url()?>js/jquery-1.9.1.min.js"></script>
-		<script src="<?=base_url()?>js/config.js"></script>
+		<link href="<?=base_url()?>css/ui-lightness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+        	<script src="<?=base_url()?>js/jquery-ui-1.9.2.custom.js"></script>
+                <script src="<?=base_url()?>js/config.js"></script>
                 <script type="text/javascript"
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbR4DqYTbeqZUACVrVaAwnjFcgY6vR4BA&sensor=true">
                   </script>
