@@ -33,8 +33,24 @@ class Gasolinazos extends CI_Controller {
         
         public function contacto(){
 //            $data["noticias"] = $this->noticias_m->getNoticias();
+            $correo = $this->input->post("correo");
+            $mensaje = $this->input->post("mensaje");
+            $data=array();
+            
+            $this->load->helper(array('form', 'url'));
+
+            $this->load->library('form_validation');
+
+            $this->form_validation->set_rules('correo', 'Correo', 'required|valid_email');
+            $this->form_validation->set_rules('mensaje', 'Mensaje', 'required|min_length[5]|max_length[130]|xss_clean');
+
+            if ($this->form_validation->run() == FALSE)
+            {
+                $data["error"]="error";
+            }
             $data["content"] = $this->load->view('contacto',$data,true);
             $this->load->view('main',$data);
+            
         }
         
         public function regDat(){
