@@ -123,7 +123,13 @@ class Gasolineras_m extends CI_Model {
         return $respuesta;
     }
     
-    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.02,$geolat = 0, $geolng=0){
+    function buscarGasolinerasCoord($latitud,$longitud,$radio=0.02,$geolat = 0, $geolng=0, $filtros=null,$iterador=0){
+        if($iterador == 80){
+            $error = array("error"=>"No se encontraron gasolineras cercanas con los parámetros solicitados");
+            return $error;
+        }
+        //echo $iterador;
+        $iterador++;
         $lat_ini = $latitud + $radio;
         $lng_ini = $longitud - $radio;
         $lat_fin = $latitud - $radio;
@@ -136,6 +142,9 @@ class Gasolineras_m extends CI_Model {
         $this->db->from("gasolinera");
         $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
         $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");
+        if(isset($filtros->magna) || isset($filtros->premium) || isset($filtros->diesel) || isset($filtros->dme)){
+            $this->db->join("gasolinera_has_producto","gasolinera_has_producto.gasolinera_idgasolinera = gasolinera.idgasolinera");
+        }
         //Condiciones de coordenadas
         $this->db->where("gasolinera.latitud <=",$lat_ini);
         $this->db->where("gasolinera.longitud >=",$lng_ini);
@@ -143,13 +152,35 @@ class Gasolineras_m extends CI_Model {
         $this->db->where("gasolinera.latitud >=",$lat_fin);
         $this->db->where("gasolinera.longitud <=",$lng_fin);
         //Fin condiciones de coord
+        $servicio=array();
+        if(isset($filtros->magna)){
+            $servicio[] = "1";
+        }
+        if(isset($filtros->premium)){
+            $servicio[] = "2";
+        }
+        if(isset($filtros->diesel)){
+            $servicio[] = "3";
+        }
+        if(isset($filtros->dme)){
+            $servicio[] = "4";
+        }
+        if(sizeof($servicio)>0){
+            $this->db->where_in("gasolinera_has_producto.producto_idproducto",$servicio);
+        }
+        if(isset($filtros->cualli)){
+            $this->db->where("gasolinera.cualli","1");
+        }
+        if(isset($filtros->vpm)){
+            $this->db->where("gasolinera.vpm","1");
+        }
         
         $this->db->group_by("gasolinera.idgasolinera");
         $this->db->order_by("promedio","desc");
         $this->db->order_by("votos","desc");
 //        $this->db->limit(10);
         $query = $this->db->get();
-        //echo $this->db->last_query();
+ //       echo $this->db->last_query();
         $respuesta = array();$x=0;
         $distancias=array();
         if($geolat != 0 && $geolng != 0){
@@ -171,7 +202,7 @@ class Gasolineras_m extends CI_Model {
             $x++;
         }
         if(sizeof($distancias)<=5){
-            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.02,$geolat, $geolng);
+            return $this->buscarGasolinerasCoord($latitud,$longitud,$radio+0.02,$geolat, $geolng, $filtros,$iterador);
         }
         
         asort($distancias);

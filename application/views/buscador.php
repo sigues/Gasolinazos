@@ -32,24 +32,27 @@
                             <div id="div-texto">
                                 <label for="buscador-texto">Texto libre: </label> <input type="text" id="buscador-texto" />
                             </div>
-                            <br>
-                            <div id="filtros" style="vertical-align:top">
-                                <b title="Prioridad en los colores, elija a que filtro dar prioridad">Colores:</b><br>
-                                <label for="profeco" title="Si elige PROFECO se dará prioridad a las verificaciones de Litros de a litro">PROFECO</label> <input type="radio" value="profeco" id="profeco" name="filtros" />
-                                <label for="gasolinazos" title="Si elige Gasolinazos.com se dará prioridad a las calificaciones de los usuarios">Gasolinazos.com</label> <input type="radio" value="gasolinazos" id="gasolinazos" name="filtros" />
-                            </div>
-                            <div id="Servicios">
-                                <b title="Elija los servicios que deben tener las gasolineras que busca">Servicios:</b><br>
-                                <label for="premium" title="Gasolina Premium">Premium</label> <input type="checkbox" value="" id="premium" name="premium" />
-                                <label for="magna" title="Gasolina Magna">Magna</label> <input type="checkbox" value="" id="magna" name="magna" /><br>
-                                <label for="diesel" title="Diesel">Diesel</label> <input type="checkbox" value="" id="diesel" name="diesel" />
-                                <label for="dme" title="Diesel Marítimo">Diesel Marítimo</label> <input type="checkbox" value="" id="dme" name="dme" /><br>
-                                <label for="cualli" title="Servicio Cualli">Cualli</label> <input type="checkbox" value="" id="cualli" name="cualli" />
-                                <label for="vpm" title="Ventas de primera mano">VPM</label> <input type="checkbox" value="" id="vpm" name="vpm" /><br>
-                                
-                            </div>
                             <br><br>
+                            <div id="buscadorAvanzado" style="display:none">
+                                <div id="filtros" style="vertical-align:top">
+                                    <b title="Prioridad en los colores, elija a que filtro dar prioridad">Colores:</b><br>
+                                    <label for="profeco" title="Si elige PROFECO se dará prioridad a las verificaciones de Litros de a litro">PROFECO</label> <input type="radio" value="profeco" id="profeco" name="filtros" />
+                                    <label for="gasolinazos" title="Si elige Gasolinazos.com se dará prioridad a las calificaciones de los usuarios">Gasolinazos.com</label> <input type="radio" value="gasolinazos" id="gasolinazos" name="filtros" checked="checked" />
+                                </div>
+                                <div id="Servicios">
+                                    <b title="Elija los servicios que deben tener las gasolineras que busca">Servicios:</b><br>
+                                    <label for="premium" title="Gasolina Premium">Premium</label> <input type="checkbox" value="" class="checkServicios" id="premium" name="premium" checked="checked" />
+                                    <label for="magna" title="Gasolina Magna">Magna</label> <input type="checkbox" value="" class="checkServicios" id="magna" name="magna" checked="checked" /><br>
+                                    <label for="diesel" title="Diesel">Diesel</label> <input type="checkbox" value="" class="checkServicios" id="diesel" name="diesel" checked="checked" />
+                                    <label for="dme" title="Diesel Marítimo">Diesel Marítimo</label> <input type="checkbox" value="" class="checkServicios" id="dme" name="dme" checked="checked" /><br>
+                                    <label for="cualli" title="Servicio Cualli">Cualli</label> <input type="checkbox" value="" class="checkServicios" id="cualli" name="cualli" checked="checked" />
+                                    <label for="vpm" title="Ventas de primera mano">VPM</label> <input type="checkbox" value="" class="checkServicios" id="vpm" name="vpm" checked="checked" /><br>
+
+                                </div>
+                            </div>
+                            <br>
                             <div id="div-boton" style="margin-bottom:10px;">
+                                <button class="botonAvanzado" id="btn-buscadorAvanzado">Búsqueda avanzada</button>
                                 <button id="buscar" class="botonMas">Buscar</button>
                             </div>
                             

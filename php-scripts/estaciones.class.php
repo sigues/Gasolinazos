@@ -143,7 +143,12 @@ class estaciones{
 		
 	}
 	
-	
+	function updateCualliVpm($estacion, $cualli, $vpm){
+		$sql = "update gasolinera set cualli='$cualli', vpm='$vpm' where estacion = '$estacion'";
+                //echo $sql."<br>";
+		mysql_query($sql,$this->db);
+            echo "Estacion $estacion actualizada<br>";
+        }
 
 }
 

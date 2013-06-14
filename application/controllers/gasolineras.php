@@ -73,9 +73,10 @@ class Gasolineras extends CI_Controller {
             $longitud = $this->input->post("longitud");
             $geolat = $this->input->post("geolat");
             $geolng = $this->input->post("geolng");
+            $filtros = json_decode($this->input->post("filtros"));
        //     echo $latitud.$longitud;
             $this->load->model("gasolineras_m");
-            $gasolineras = $this->gasolineras_m->buscarGasolinerasCoord($latitud,$longitud,0.02,$geolat,$geolng);
+            $gasolineras = $this->gasolineras_m->buscarGasolinerasCoord($latitud,$longitud,0.02,$geolat,$geolng,$filtros);
             echo json_encode($gasolineras);
         }
         

@@ -9,9 +9,11 @@ mysql_select_db("gasolinazos");
 $estacion = new estaciones();
 
 $row = 1;
+//echo file_get_contents("Estaciones.csv");die();
 if (($handle = fopen("Estaciones.csv", "r")) !== FALSE) {
+    //$data = fgetcsv($handle, 1000, ",");var_dump($data);
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-		if($row>=4000){
+		if($row>=6500){
 			$time_end = microtime(true);
 			//dividing with 60 will give the execution time in minutes other wise seconds
 			$execution_time = ($time_end - $time_start)/60;
@@ -39,8 +41,8 @@ if (($handle = fopen("Estaciones.csv", "r")) !== FALSE) {
 		$estacion->telefono = $data[7]; 
 		$estacion->email = $data[8]; 
 		$estacion->inicio_operaciones = $data[9]; 
-		$estacion->vpm = $data[10]; 
-		$estacion->cualli = $data[11]; 
+		$estacion->vpm = ($data[10]=="S")?1:0; 
+		$estacion->cualli = ($data[11]=="S")?1:0;
 		$estacion->tar = $data[12];
 		$estacion->magna = $data[13];
 		$estacion->premium = $data[14];
@@ -55,7 +57,10 @@ if (($handle = fopen("Estaciones.csv", "r")) !== FALSE) {
 		$estacion->fecha_convenio = $data[30]; 
 		$estacion->vencimiento_convenio = $data[31];
 		
-		$estacion->insertaGasolinera();
+		//$estacion->insertaGasolinera();
+                //
+                //
+                $estacion->updateCualliVpm($estacion->estacion, $estacion->cualli, $estacion->vpm);
 //		var_dump($estacion);
 //		echo "estado ".$data[0]." ciudad".$data[1]."<br>";
     }

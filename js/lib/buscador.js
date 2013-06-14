@@ -17,6 +17,16 @@ $(document).ready(function() {
 
         }
     });
+    $('.checkServicios').change(function(){
+        if($("#geo-lat").val() != 0 && $("#geo-lng").val()!= 0){
+                    buscarGasolinerasCoord($("#geo-lat").val(), $("#geo-lng").val());
+
+        }
+    });
+    $("#btn-buscadorAvanzado").click(function(){
+        $("#buscadorAvanzado").slideToggle(500);
+    });
+
 });
 
 function readyEstado(){
@@ -204,20 +214,26 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
     $("#position").val("true");
 //    console.log($("#latitud").val(latitud));
 //    console.log($("#longitud").val(longitud));
+    var filtros_ar = filtrar();
     $.ajax(
             {
                 url: $("#base_url").val()+"index.php/gasolineras/buscarGasolinerasCoord",
                 type: "post",
                 dataType: "json",
                 data:{
+                    filtros:JSON.stringify(filtros_ar),
                     latitud:latitud,
                     longitud:longitud,
                     geolat:$("#geo-lat").val(),
                     geolng:$("#geo-lng").val()
                 },
                 success: function( data ){
-                    parseDatos(data);
-                    var datos = data;
+                    if(typeof data.error !== "undefined"){
+                        alert(data.error);
+                    }else{
+                        parseDatos(data);
+                        var datos = data;
+                    }
                 },
                 complete: function(strData){
                     var datos = $.parseJSON(strData.responseText);
@@ -444,4 +460,28 @@ function calculaColor(promedio,votos,reportes){
     }
        
         return color;
+}
+
+function filtrar(){
+    var filtros_ar = new Object();
+    if($('#magna').is(':checked')){
+        filtros_ar.magna = true;
+    }
+    if($('#premium').is(':checked')){
+        filtros_ar.premium = true;
+    }
+    if($('#diesel').is(':checked')){
+        filtros_ar.diesel = true;
+    }
+    if($('#dme').is(':checked')){
+        filtros_ar.dme = true;
+    }
+    if($('#cualli').is(':checked')){
+        filtros_ar.cualli = true;
+    }
+    if($('#vpm').is(':checked')){
+        filtros_ar.vpm = true;
+    }
+   
+    return filtros_ar;
 }
