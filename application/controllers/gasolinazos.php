@@ -33,10 +33,15 @@ class Gasolinazos extends CI_Controller {
         
         public function contacto(){
 //            $data["noticias"] = $this->noticias_m->getNoticias();
-            $correo = $this->input->post("correo");
-            $mensaje = $this->input->post("mensaje");
-            $data=array();
+            $correo = strip_tags($this->input->post("correo"));
+            $mensaje = strip_tags($this->input->post("mensaje"));
+            $fbid = $this->session->userdata("fbid");
+            $first_name = $this->session->userdata("first_name");
+            $middle_name = $this->session->userdata("middle_name");
+            $last_name = $this->session->userdata("last_name");
             
+            $data=array();
+            $data["fbid"] = $fbid;
             $this->load->helper(array('form', 'url'));
 
             $this->load->library('form_validation');
@@ -47,7 +52,21 @@ class Gasolinazos extends CI_Controller {
             if ($this->form_validation->run() == FALSE)
             {
                 $data["error"]="error";
+            }else{
+                //Enviando correo de contacto, esta info no se procesa, como viene se manda
+                $this->load->library('email');
+                $this->email->from($mensaje, $first_name." ".$middle_name." ".$last_name);
+                $this->email->to('someone@example.com');
+                $this->email->subject('Contacto por sitio');
+                $this->email->message($mensaje);
+
+                $this->email->send();
+
+                $data["success"]="success";
             }
+            
+            $this->load->model("noticias_m");
+            $data["noticias"]=$this->noticias_m->getNoticiasSidebar(1);
             $data["content"] = $this->load->view('contacto',$data,true);
             $this->load->view('main',$data);
             
@@ -75,6 +94,16 @@ class Gasolinazos extends CI_Controller {
             } else {
                 echo "Hola ".$this->session->userdata("first_name");
             }
+        }
+        
+        public function noticia(){
+            $this->load->model("noticias_m");
+            $idnoticia = $this->uri->segment(3);
+            $this->noticias_m->agregaVista($idnoticia);
+            $data["noticia"] = $this->noticias_m->getNoticia($idnoticia);
+            $data["noticias_sidebar"] = $this->noticias_m->getNoticiasSidebar();
+            $data["content"]=$this->load->view("noticia",$data,true);
+            $this->load->view("main",$data);
         }
         
 }

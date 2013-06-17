@@ -5,8 +5,8 @@
                     
                     <? foreach($noticias as $noticia){?>
                         <header>
-                                <h2><?=$noticia->titulo?></h2>
-                                <h3><?=date("d/M/Y",strtotime($noticia->fecha))?></h3>
+                                <h2><a href="<?=base_url()?>index.php/gasolinazos/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>"><?=$noticia->titulo?></a></h2>
+                                <h3>Publicada el <?=date("d/m/Y",strtotime($noticia->fecha))?>, <?=$noticia->vistas?> Visitas</h3>
                         </header>
                         <p>
                                 <?=$noticia->resumen?>
