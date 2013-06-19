@@ -11,6 +11,7 @@ $(document).ready(function() {
                         <header>
                                 <h2><?=$noticia["titulo"]?></h2>
                                 <h3>Publicada el <?=date("d/m/Y",strtotime($noticia["fecha"]))?>, <?=$noticia["vistas"]?> Visitas</h3>
+                                <?php $this->load->view("extra/botones_sociales")?>
                         </header>
                     <p>
                         <? if(isset($noticia["imagen"]) && $noticia["imagen"]!=""){ ?>

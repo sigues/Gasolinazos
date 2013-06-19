@@ -4,6 +4,7 @@
                         <header>
                                 <h2><?=$estacion["estacion"]?> - <?=$estacion["nombre"]?></h2>
                                 <h3><?=$estacion["direccion"]?>, <?=$estacion["colonia"]?>, <?=$estacion["nombre_ciudad"]?>, <?=$estacion["nombre_estado"]?></h3>
+                                <?php $this->load->view("extra/botones_sociales")?>
                         </header>
                         <p>
                             <?php

@@ -4,6 +4,7 @@
                         <header>
                                 <h2>Grupo <?=$nombre_grupo?></h2>
                                 <h3><?=$direccion_grupo?>, <?=$colonia_grupo?>, <?=$nombre_ciudad?>, <?=$nombre_estado?></h3>
+                                <?php $this->load->view("extra/botones_sociales")?>
                         </header>
                         <p>
                             <?php
