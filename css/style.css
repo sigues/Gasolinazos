@@ -575,3 +575,15 @@
             background: #D4D9DD;
             width: 200px;
         }
+        .productoBanner{
+            width: 100%;
+            top: 0;
+            left: 0;
+            -moz-border-radius:6px; 
+            -webkit-border-radius:6px;
+            border-radius:6px;
+        }
+        .precioBanner{
+            font-size: xx-large;
+        }
+        

@@ -70,7 +70,7 @@ echo "Hola ".$this->session->userdata("first_name");
 						<div class="12u">
 
 							<!-- Logo -->
-								<h1><!--<a href="#" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a>!-->Gasolinazos.com</h1>
+								<h1><a href="#" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a></h1>
 							
 							<!-- Nav -->
 								<nav id="nav">

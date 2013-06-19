@@ -10,8 +10,10 @@ class Gasolinazos extends CI_Controller {
                 $data["estados"] = $this->gasolineras_m->getEstados();
                 $this->load->view('movil/test1',$data);
             } else {
+                $this->load->model("gasolinera_m");
                 $data["banner"] = true;
                 $data["features"] = true;
+                $data["precio"] = $this->gasolinera_m->getPreciosProductos();
                 $data["content"] = $this->load->view('index/content',$data,true);
                 $this->load->view('main',$data);
 //                $this->load->view('principal',$data);

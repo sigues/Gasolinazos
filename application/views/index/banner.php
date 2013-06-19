@@ -8,12 +8,23 @@
                                         <a href="<?=base_url()?>index.php/gasolineras/buscador" class="button-big">Haz Click Aquí</a>
 
                         </div>
-                        <div class="6u">
+                        <div class="1u">
+&nbsp;
+                                <!-- Banner Copy -->
+                        </div>
+                        <div class="2u">
+<img src="<?=base_url()?>images/premium.png" class="productoBanner" />
+                                <span class="precioBanner">$<?=$precio["Premium"]?> / litro</span>
+                        </div>
+                        <div class="2u">
 
-                                <!-- Banner Image -->
-                                quitar esta imagen y poner aquí los precios actuales
-                                        <a href="#" class="bordered-feature-image"><img src="../images/banner.jpg" alt="" /></a>
+<img src="<?=base_url()?>images/magna.png" class="productoBanner" />
+                                <span class="precioBanner">$<?=$precio["Magna"]?> / litro</span>
+                        </div>
+                        <div class="2u">
 
+<img src="<?=base_url()?>images/diesel.png" class="productoBanner" />
+                                <span class="precioBanner">$<?=$precio["Diesel"]?> / litro</span>
                         </div>
                 </div>
         </div>

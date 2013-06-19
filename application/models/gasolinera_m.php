@@ -144,6 +144,19 @@ class Gasolinera_m extends CI_Model {
     function voto($voto){
         $this->db->insert("voto",$voto);
     }
+    
+    function getPreciosProductos(){
+        $this->db->select("max(zona_has_producto.precio) precio, producto.nombre, producto.idproducto");
+        $this->db->from("producto");
+        $this->db->join("zona_has_producto","producto.idproducto = zona_has_producto.producto_idproducto");
+        $this->db->group_by("producto.idproducto");
+        $this->db->order_by("zona_has_producto.fecha","asc");
+        $query = $this->db->get();
+        foreach($query->result() as $row){
+            $producto[$row->nombre] = $row->precio;
+        }
+        return $producto;
+    }
 
 }
 
