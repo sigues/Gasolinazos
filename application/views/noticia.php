@@ -20,7 +20,7 @@ $(document).ready(function() {
                         <?=$noticia["texto"]?>
                         
                     </p>
-                            
+                    <? $this->load->view("extra/comentarios"); ?>  
                 </section>
 </div>
 <div class="3u">

@@ -6,8 +6,7 @@
                                 <h2>Publicidad</h2>
                         </header>
                         <p>
-                                Vehicula fermentum ligula at pretium. Suspendisse semper iaculis eros, eu aliquam 
-                                iaculis. Phasellus ultrices diam sit amet orci lacinia sed consequat. 							
+                                ¿Quieres anunciarte con nosotros? <a href="<?=base_url()?>index.php/gasolinazos/contacto">Contáctanos</a>						
                         </p>
                 </section>
 </div>
@@ -42,20 +41,7 @@
 
 </div>
 <div class="3u">
-
-        <!-- Right Sidebar -->
-                <section>
-                        <header>
-                                <h2>Publicidad</h2>
-                        </header>
-                        <ul class="link-list">
-                                <li><a href="#">Sed dolore viverra</a></li>
-                                <li><a href="#">Ligula non varius</a></li>
-                                <li><a href="#">Nec sociis natoque</a></li>
-                                <li><a href="#">Penatibus et magnis</a></li>
-                                <li><a href="#">Dis parturient montes</a></li>
-                                <li><a href="#">Nascetur ridiculus</a></li>
-                        </ul>
-                </section>
+<?$this->load->model("noticias_m");?>
+        <? $this->load->view("sidebar/noticias")?>
 
 </div>
