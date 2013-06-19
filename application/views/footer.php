@@ -21,23 +21,23 @@
 													<li><a href="http://guiapemex.pemex.com/Paginas/gasolinerias.aspx" target="_blank">Guia PEMEX</a></li>
 													<li><a href="http://webapps.profeco.gob.mx/verificacion/gasolina/home_11.asp" target="_blank">Litros de a Litro PROFECO</a></li>
 													<li><a href="http://viajaconpemex.pemex.com/viajapemex/" target="_blank">Viaja con PEMEX</a></li>
-													<li><a href="http://www.gasmart.com.mx/histo_gas.php?selec_mes1=<?=trim(date("m"),"0")?>&selec_year1=undefined" target="_blank">Precio Histórico Gasolina</a></li>
+													<li><a href="http://www.pemex.com/" target="_blank">Página Oficial PEMEX</a></li>
 												</ul>
 											</div>
 											<div class="3u">
 												<ul class="link-list last-child">
 													<li><a href="http://www.pemex.com/index.cfm?action=content&sectionID=4&catID=10015" target="_blank">PEMEX Productos</a></li>
-													<li><a href="http://www.ref.pemex.com/index.cfm?action=content&sectionid=11&catid=212">PEMEX Franquicias</a></li>
-													<li><a href="http://www.pemex.com/index.cfm?action=content&sectionID=1&catID=14662">PEMEX Programa Estratégico Tecnológico</a></li>
-													<li><a href="#">Eu varius vitae magna</a></li>
+													<li><a href="http://www.ref.pemex.com/index.cfm?action=content&sectionid=11&catid=212" target="_blank">PEMEX Franquicias</a></li>
+													<li><a href="http://www.pemex.com/index.cfm?action=content&sectionID=1&catID=14662" target="_blank">PEMEX Programa Estratégico Tecnológico</a></li>
+													<li><a href="http://sie.energia.gob.mx/" target="_blank">Sistema de Información Energética</a></li>
 												</ul>
 											</div>
 											<div class="3u">
 												<ul class="link-list last-child">
-													<li><a href="#">Neque amet dapibus</a></li>
-													<li><a href="#">Sed mattis quis rutrum</a></li>
-													<li><a href="#">Accumsan suspendisse</a></li>
-													<li><a href="#">Eu varius vitae magna</a></li>
+													<li><a href="http://portaltransparencia.gob.mx/buscador/search/search.do?method=begin&searchBy=0&idDependenciaZoom=18572" target="_blank">PEMEX Transparencia</a></li>
+													<li><a href="http://inicio.ifai.org.mx/_catalogs/masterpage/ifai.aspx" target="_blank">IFAI</a></li>
+													<li><a href="http://www.gasmart.com.mx/histo_gas.php?selec_mes1=<?=trim(date("m"),"0")?>&selec_year1=undefined" target="_blank">Precio Histórico Gasolina</a></li>
+													<li><a href="https://www.comercialrefinacion.pemex.com/portal/" target="_blank">Portal Comercial de PEMEX</a></li>
 												</ul>
 											</div>
 										</div>

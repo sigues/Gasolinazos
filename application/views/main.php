@@ -132,7 +132,7 @@ echo "Hola ".$this->session->userdata("first_name");
 
 		<!-- Copyright -->
 			<div id="copyright">
-				&copy; Untitled. All rights reserved. | Design: <a href="http://html5up.net">HTML5 UP</a> | Images: <a href="http://fotogrph.com">fotogrph</a>
+				&copy; Gasolinazos.com. Todos los derechos reservados. | Diseño: <a href="http://html5up.net">HTML5 UP</a>
 			</div>
 
 	</body>
