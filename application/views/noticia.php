@@ -25,20 +25,7 @@ $(document).ready(function() {
 <div class="3u">
 
         <!-- Sidebar -->
-                <section>
-                        <header>
-                                <h2>Noticias</h2>
-                        </header>
-                        <ul class="link-list">
-                            <? 
-                            if(isset($noticias_sidebar) && sizeof($noticias_sidebar)>0){ 
-                                foreach($noticias_sidebar as $noticia){ ?>
-                                    <li><a href="<?=base_url()?>index.php/gasolinazos/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo);?>"><?=$noticia->titulo?></a></li>
-                                <? }
-                                
-                                
-                            }
-                            ?>
-                        </ul>
-                </section>
+        <?php
+            $this->load->view("sidebar/noticias");
+        ?>
 </div>

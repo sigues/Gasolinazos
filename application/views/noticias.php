@@ -18,38 +18,29 @@
                     <? } ?>
 
                 </section>
-
+<section>
+    <p>Página: <?
+    $paginas = ceil($count_noticias/5);
+    
+    if($pagina>1){
+        echo " <a href='".base_url()."index.php/gasolinazos/noticias/".($pagina-1)."'>< Anterior</a> |";
+    }
+    for($x=1;$x<=$paginas;$x++){
+        $url = ($pagina == $x) ? $x : "<a href='".base_url()."index.php/gasolinazos/noticias/".$x."'>".$x."</a>";
+        echo $url."|";
+    }                    
+    if($paginas>1 && $pagina<$paginas){
+        echo " <a href='".base_url()."index.php/gasolinazos/noticias/".($pagina+1)."'>Siguiente ></a>";
+    }
+                    ?></p>
+    
+</section>
 </div>
 <div class="3u">
 
         <!-- Sidebar -->
-                <section>
-                        <header>
-                                <h2>Magna Phasellus</h2>
-                        </header>
-                        <ul class="link-list">
-                                <li><a href="#">Sed dolore viverra</a></li>
-                                <li><a href="#">Ligula non varius</a></li>
-                                <li><a href="#">Nec sociis natoque</a></li>
-                                <li><a href="#">Penatibus et magnis</a></li>
-                                <li><a href="#">Dis parturient montes</a></li>
-                                <li><a href="#">Nascetur ridiculus</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <header>
-                                <h2>Ipsum Dolor</h2>
-                        </header>
-                        <p>
-                                Vehicula fermentum ligula at pretium. Suspendisse semper iaculis eros, eu aliquam 
-                                iaculis. Phasellus ultrices diam sit amet orci lacinia sed consequat. 							
-                        </p>
-                        <ul class="link-list">
-                                <li><a href="#">Sed dolore viverra</a></li>
-                                <li><a href="#">Ligula non varius</a></li>
-                                <li><a href="#">Dis parturient montes</a></li>
-                                <li><a href="#">Nascetur ridiculus</a></li>
-                        </ul>
-                </section>
+        <?php
+            $this->load->view("sidebar/noticias");
+        ?>
 
 </div>
