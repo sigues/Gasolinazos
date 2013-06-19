@@ -99,11 +99,40 @@ class Gasolinazos extends CI_Controller {
         public function noticia(){
             $this->load->model("noticias_m");
             $idnoticia = $this->uri->segment(3);
-            $this->noticias_m->agregaVista($idnoticia);
-            $data["noticia"] = $this->noticias_m->getNoticia($idnoticia);
-            $data["noticias_sidebar"] = $this->noticias_m->getNoticiasSidebar();
-            $data["content"]=$this->load->view("noticia",$data,true);
-            $this->load->view("main",$data);
+            $this->load->library('user_agent');
+            
+            
+            $my_file = 'file'.microtime().'.txt';
+            $handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
+            
+            if ($this->agent->is_browser())
+            {
+                $agent = $this->agent->browser().' '.$this->agent->version();
+            }
+            elseif ($this->agent->is_robot())
+            {
+                $agent = $this->agent->robot();
+            }
+            elseif ($this->agent->is_mobile())
+            {
+                $agent = $this->agent->mobile();
+            }
+            else
+            {
+                $agent = 'Unidentified User Agent';
+            }
+            fwrite($handle, print_r($agent,true).print_r($_SERVER,true));
+            
+            if($this->noticias_m->agregaVista($idnoticia)){
+                $data["noticia"] = $this->noticias_m->getNoticia($idnoticia);
+                $data["noticias_sidebar"] = $this->noticias_m->getNoticiasSidebar();
+                $data["content"]=$this->load->view("noticia",$data,true);
+                $main = $this->load->view("main",$data,true);
+            }
+            echo $main;
+            
+                
+            
         }
         
 }

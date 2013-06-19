@@ -37,7 +37,11 @@ class Noticias_m extends CI_Model {
     }
     
     function agregaVista($idnoticia){
+        $this->db->set("vistas","vistas + 1",FALSE);
+        $this->db->where('idnoticia', $idnoticia);
+        $this->db->update('noticia');
         
+        return true;
     }
 }
 

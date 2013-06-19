@@ -10,13 +10,14 @@ $(document).ready(function() {
                 <section>
                         <header>
                                 <h2><?=$noticia["titulo"]?></h2>
-                                <h3><?=date("d/m/Y",strtotime($noticia["fecha"]))?>, <?=$noticia["vistas"]?> vistas</h3>
+                                <h3>Publicada el <?=date("d/m/Y",strtotime($noticia["fecha"]))?>, <?=$noticia["vistas"]?> Visitas</h3>
                         </header>
                     <p>
-                        <?=$noticia["texto"]?>
                         <? if(isset($noticia["imagen"]) && $noticia["imagen"]!=""){ ?>
-                            <div style="width:200px;float:right;"><img src="<?=base_url()?>images/<?=$noticia["imagen"]?>" width="200px" /><?=$noticia["imagen_texto"]?></div>
+                            <div class="imagenNoticia"><img src="<?=base_url()?><?=$noticia["imagen"]?>" width="200px" /><span><?=$noticia["imagen_texto"]?></span></div>
                         <? } ?>
+                        <?=$noticia["texto"]?>
+                        
                     </p>
                             
                 </section>

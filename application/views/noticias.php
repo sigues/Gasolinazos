@@ -9,6 +9,9 @@
                                 <h3>Publicada el <?=date("d/m/Y",strtotime($noticia->fecha))?>, <?=$noticia->vistas?> Visitas</h3>
                         </header>
                         <p>
+                            <? if(isset($noticia->imagen) && $noticia->imagen!=""){ ?>
+                                <div class="imagenNoticia"><img src="<?=base_url()?><?=$noticia->imagen?>" width="200px" /><span><?=$noticia->imagen_texto?></span></div>
+                            <? } ?>
                                 <?=$noticia->resumen?>
                         </p>
                     
