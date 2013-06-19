@@ -15,7 +15,7 @@ $(document).ready(function() {
                         </header>
                     <p>
                         <? if(isset($noticia["imagen"]) && $noticia["imagen"]!=""){ ?>
-                            <div class="imagenNoticia"><img src="<?=base_url()?><?=$noticia["imagen"]?>" width="200px" /><span><?=$noticia["imagen_texto"]?></span></div>
+                            <div class="imagenNoticia bordered-feature-image"><img src="<?=base_url()?><?=$noticia["imagen"]?>" width="200px" /><span><?=$noticia["imagen_texto"]?></span></div>
                         <? } ?>
                         <?=$noticia["texto"]?>
                         

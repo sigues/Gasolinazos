@@ -74,7 +74,7 @@ echo "Hola ".$this->session->userdata("first_name");
 							
 							<!-- Nav -->
 								<nav id="nav">
-									<a href="<?=base_url()?>">Inicio</a>
+									<a href="<?=base_url()?>index.php">Inicio</a>
 									<a href="<?=base_url()?>index.php/gasolineras/buscador">Estaciones</a>
 									<a href="<?=base_url()?>index.php/gasolinazos/noticias">Noticias</a>
 									<a href="<?=base_url()?>index.php/gasolinazos/contacto">Contacto</a>
@@ -84,8 +84,9 @@ echo "Hola ".$this->session->userdata("first_name");
 					</div>
 				</header>
 			</div>
-
-		<!-- Content -->
+                        <? if(isset($banner)&&$banner==true){$this->load->view("index/banner");}?>
+                        <? if(isset($features)&&$features==true){$this->load->view("index/features");}?>
+                <!-- Content -->
 			<div id="content-wrapper">
 				<div id="content">
 					<div class="container">

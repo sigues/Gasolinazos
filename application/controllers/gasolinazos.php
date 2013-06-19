@@ -5,15 +5,16 @@ class Gasolinazos extends CI_Controller {
         public function index(){
             $data="";
             $this->load->library('user_agent');
-            if(!$this->agent->is_mobile()){
-               /* $data["content"] = $this->load->view('movil',$data,true);
-                $data["footer"] = true;
-                $this->load->view('main',$data);*/
+            if($this->agent->is_mobile()){
                 $this->load->model("gasolineras_m");
                 $data["estados"] = $this->gasolineras_m->getEstados();
                 $this->load->view('movil/test1',$data);
             } else {
-                $this->load->view('principal',$data);
+                $data["banner"] = true;
+                $data["features"] = true;
+                $data["content"] = $this->load->view('index/content',$data,true);
+                $this->load->view('main',$data);
+//                $this->load->view('principal',$data);
             }
             
             //$data["content"] = $this->load->view('principal',$data,true);
