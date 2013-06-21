@@ -134,17 +134,19 @@ class Gasolineras_m extends CI_Model {
         $lng_ini = $longitud - $radio;
         $lat_fin = $latitud - $radio;
         $lng_fin = $longitud + $radio;
-
+        $usuario = $this->session->userdata("idusuario");
+        //echo $usuario."<--";
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
 	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio");
-        
+        $this->db->select("(select valor from voto where usuario_idusuario=$usuario and gasolinera_idgasolinera = gasolinera.idgasolinera order by idvoto desc limit 0,1) calificacion",false);
         $this->db->from("gasolinera");
         $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
         $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");
         if(isset($filtros->magna) || isset($filtros->premium) || isset($filtros->diesel) || isset($filtros->dme)){
             $this->db->join("gasolinera_has_producto","gasolinera_has_producto.gasolinera_idgasolinera = gasolinera.idgasolinera");
         }
+
         //Condiciones de coordenadas
         $this->db->where("gasolinera.latitud <=",$lat_ini);
         $this->db->where("gasolinera.longitud >=",$lng_ini);
@@ -180,7 +182,7 @@ class Gasolineras_m extends CI_Model {
         $this->db->order_by("votos","desc");
 //        $this->db->limit(10);
         $query = $this->db->get();
- //       echo $this->db->last_query();
+        //echo $this->db->last_query();
         $respuesta = array();$x=0;
         $distancias=array();
         if($geolat != 0 && $geolng != 0){

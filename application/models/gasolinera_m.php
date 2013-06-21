@@ -157,6 +157,21 @@ class Gasolinera_m extends CI_Model {
         }
         return $producto;
     }
+    
+    function getCalificacionByUsuario($idgasolinera,$idusuario){
+        $this->db->select("valor");
+        $this->db->from("voto");
+        $this->db->where("gasolinera_idgasolinera",$idgasolinera);
+        $this->db->where("usuario_idusuario",$idusuario);
+        $this->db->order_by("idvoto","desc");
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $calificacion=array();
+        foreach($query->result() as $row){
+            $calificacion = $row->valor;
+        }
+        return $calificacion;
+    }
 
 }
 

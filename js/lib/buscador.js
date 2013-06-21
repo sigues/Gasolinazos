@@ -139,9 +139,14 @@ function cargaDatosMapa(data){
 //            console.log(data[i].reportes);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
               var color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
-      
+              console.log(data[i].calificacion);
+              var botonMas = (data[i].calificacion==0 || data[i].calificacion==null)?"botonMas":"botonGris";
+              var botonMenos = (data[i].calificacion==1 || data[i].calificacion==null)?"botonMenos":"botonGris";
+              var opcionMas = (data[i].calificacion==0 || data[i].calificacion==null)?'onclick="votar('+data[i].idgasolinera+',\'mas\');"' : 'title="Ya haz votado por esta gasolinera"';
+              var opcionMenos = (data[i].calificacion==1 || data[i].calificacion==null)?'onclick="votar('+data[i].idgasolinera+',\'menos\');"' : 'title="Ya haz votado por esta gasolinera"';
+              
             var marker = map.addMarker({
-                
+              
               lat: data[i].latitud,
               lng: data[i].longitud,
               title: data[i].estacion,
@@ -151,13 +156,13 @@ function cargaDatosMapa(data){
                     '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+'<a href="'+$("#base_url").val()+'/index.php/gasolinera/estacion/'+data[i].estacion+'/ruta">Calcular Ruta</a>'+
 '                        <table border="1" class="calificar">'+
 '                            <tr>'+
-'                                <td><button id="votoMas_'+data[i].idgasolinera+'" class="botonMas" onclick="votar('+data[i].idgasolinera+',\'mas\')">+</button></td>'+
+'                                <td><button id="votoMas_'+data[i].idgasolinera+'" class="'+botonMas+'" '+opcionMas+'>+</button></td>'+
 '                                <td rowspan="2"><span id="promedio_voto_'+data[i].idgasolinera+'">'+(data[i].promedio*100)+'</span>%<br>'+
 '                                                <span id="votos_voto_'+data[i].idgasolinera+'">'+data[i].votos+'</span> votos'+
 '                                </td>'+
 '                            </tr>'+
 '                            <tr>'+
-'                                <td><button id="votoMenos_'+data[i].idgasolinera+'" class="botonMenos" onclick="votar('+data[i].idgasolinera+',\'menos\')"  >-</button></td>'+
+'                                <td><button id="votoMenos_'+data[i].idgasolinera+'" class="'+botonMenos+'"  '+opcionMenos+'  >-</button></td>'+
 '                            </tr>'+
 '                        </table>'+
 '                    </div>'
@@ -166,16 +171,9 @@ function cargaDatosMapa(data){
               
             });
             
-          //  bounds.extend(new google.maps.LatLng(marker.lat, marker.lng));  
-            //if(i <2){
-//                bounds.extend(marker);
-             //   console.log(marker)
-            // }
-//            con++;
             markers[i] = data[i].idgasolinera;
           }
       }
-    //  map.fitLatLngBounds(bounds);
 
       //console.log(markers)
       //http://hpneo.github.io/gmaps/examples/interacting.html
@@ -387,6 +385,24 @@ function votar(idgasolinera,tipo){
                 $("#promedio_voto_"+idgasolinera).html( promedio.toFixed(2) );
                 $("#votos_"+idgasolinera).html( strData.votos );
                 $("#votos_voto_"+idgasolinera).html( strData.votos );
+                var claseMas = (voto==1)?"botonGris":"botonMas";
+                var claseMenos = (voto==0)?"botonGris":"botonMenos";
+                var claseMasAnterior = $("#votoMas_"+idgasolinera).attr("class");
+                var claseMenosAnterior = $("#votoMenos_"+idgasolinera).attr("class");
+                $("#votoMas_"+idgasolinera).removeClass(claseMasAnterior);
+                $("#votoMenos_"+idgasolinera).removeClass(claseMenosAnterior);
+                $("#votoMas_"+idgasolinera).addClass(claseMas);
+                $("#votoMenos_"+idgasolinera).addClass(claseMenos);
+                
+                if(voto==0){
+                    $("#votoMenos_"+idgasolinera).removeAttr('onclick');
+                    $("#votoMas_"+idgasolinera).attr('onclick','votar('+idgasolinera+',"mas");');
+                }else{
+                    $("#votoMas_"+idgasolinera).removeAttr('onclick');
+                    $("#votoMenos_"+idgasolinera).attr('onclick','votar('+idgasolinera+',"menos");');
+                    
+                }
+                
         }
     }							
     );

@@ -1,45 +1,5 @@
 $(document).ready(function() {
 
-    $("#votoMas").click(function(){
-        $.ajax(
-                            {
-                                url: $("#base_url").val()+"index.php/gasolinera/voto",
-                                type: "post",
-                                dataType: "json",
-                                data:{
-                                    voto:"1",
-                                    gasolinera:$("#idgasolinera").val()
-                                },
-                                success: function( strData ){
-                                        var promedio = strData.promedio*100;
-                                        $("#promedio").html( promedio.toFixed(2) );
-                                        $("#promedio_voto").html( promedio.toFixed(2) );
-                                        $("#votos").html( strData.votos );
-                                        $("#votos_voto").html( strData.votos );
-                                }
-                            }							
-                            );
-    });
-    $("#votoMenos").click(function(){
-                    $.ajax(
-                            {
-                                url: $("#base_url").val()+"index.php/gasolinera/voto",
-                                type: "post",
-                                dataType: "json",
-                                data:{
-                                    voto:"0",
-                                    gasolinera:$("#idgasolinera").val()
-                                },
-                                success: function( strData ){
-                                        var promedio = strData.promedio*100;
-                                        $("#promedio").html( promedio.toFixed(2) );
-                                        $("#promedio_voto").html( promedio.toFixed(2) );
-                                        $("#votos").html( strData.votos );
-                                        $("#votos_voto").html( strData.votos );
-                                }
-                            }							
-                            );
-    });
     var latitud = $("#latitud").val();
     var longitud = $("#longitud").val();
     if(latitud != "" && longitud != ""){
@@ -141,4 +101,50 @@ function trazaRuta(){
             }
           });
     //}
+}
+
+function votar(idgasolinera,tipo){
+    var voto = 0;
+    if(tipo == "mas"){
+        voto = 1;
+    }else if (tipo == "menos"){
+        voto = 0;
+    }
+    $.ajax(
+    {
+        url: $("#base_url").val()+"index.php/gasolinera/voto",
+        type: "post",
+        dataType: "json",
+        data:{
+            voto:voto,
+            gasolinera:idgasolinera
+        },
+        success: function( strData ){
+                var promedio = strData.promedio*100;
+                $("#promedio").html( promedio.toFixed(2) );
+                $("#promedio_voto").html( promedio.toFixed(2) );
+                $("#votos").html( strData.votos );
+                $("#votos_voto").html( strData.votos );
+                
+                var claseMas = (voto==1)?"botonGris":"botonMas";
+                var claseMenos = (voto==0)?"botonGris":"botonMenos";
+                var claseMasAnterior = $("#votoMas").attr("class");
+                var claseMenosAnterior = $("#votoMenos").attr("class");
+                $("#votoMas").removeClass(claseMasAnterior);
+                $("#votoMenos").removeClass(claseMenosAnterior);
+                $("#votoMas").addClass(claseMas);
+                $("#votoMenos").addClass(claseMenos);
+                
+                if(voto==0){
+                    $("#votoMenos").removeAttr('onclick');
+                    $("#votoMas").attr('onclick','votar('+idgasolinera+',"mas");');
+                }else{
+                    $("#votoMas").removeAttr('onclick');
+                    $("#votoMenos").attr('onclick','votar('+idgasolinera+',"menos");');
+                    
+                }
+                
+        }
+    }							
+    );
 }

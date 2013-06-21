@@ -18,6 +18,8 @@ class Gasolinera extends CI_Controller {
             $data["reportes"] = $this->reporte_profeco->getReportesByEstacion($data["estacion"]["idgasolinera"]);
             $promedio = $this->gasolinera_m->getPromedioGasolinera($data["estacion"]["idgasolinera"]);
             $data["promedio"] = $promedio->promedio*100;
+            $usuario = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
+            $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($data["estacion"]["idgasolinera"],$usuario);
             $data["votos"] = $promedio->votos;
             $data["gasolineras"] = $this->gasolinera_m->getGasolineras();
             $data["gasolineras"] = $this->gasolineras_m->buscarGasolinerasCoord($data["estacion"]["latitud"],$data["estacion"]["longitud"]);
@@ -29,10 +31,15 @@ class Gasolinera extends CI_Controller {
         public function voto(){
             $voto = $this->input->post('voto');
             $gasolinera = $this->input->post('gasolinera');
-            $usuario = 1;
+            $usuario = $this->session->userdata("idusuario");
             $this->load->model('gasolinera_m');
-            $voto = array("valor"=>$voto,"gasolinera_idgasolinera"=>$gasolinera,"usuario_idusuario"=>$usuario);
-            $this->gasolinera_m->voto($voto);
+            $usuario = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
+            $data=array();
+            $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($gasolinera,$usuario);
+            if($data["calificacion"]!=$voto && $usuario!=0){
+                $voto = array("valor"=>$voto,"gasolinera_idgasolinera"=>$gasolinera,"usuario_idusuario"=>$usuario);
+                $this->gasolinera_m->voto($voto);
+            }
             $promedio = $this->gasolinera_m->getPromedioGasolinera($gasolinera);
             echo json_encode($promedio);
         }
