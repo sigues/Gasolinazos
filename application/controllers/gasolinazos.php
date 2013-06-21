@@ -2,6 +2,11 @@
 
 class Gasolinazos extends CI_Controller {
 
+        public function Gasolinazos(){
+            parent::__construct();
+            
+        }
+        
         public function index(){
             $data="";
             $this->load->library('user_agent');
@@ -90,9 +95,9 @@ class Gasolinazos extends CI_Controller {
         }
         
         public function lo(){
-             $this->session->unset_userdata("fbid");
-             
-             $this->session->unset_userdata("idusuario");
+            $this->session->unset_userdata("fbid");
+            $this->session->unset_userdata("idusuario");
+            redirect('/gasolinazos/index', 'refresh');
         }
         
         public function boton(){

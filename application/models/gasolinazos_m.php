@@ -19,7 +19,7 @@ class Gasolinazos_m extends CI_Model {
     
     function registraUsuario($values){
         $valores = array();
-        $valores_permitidos = array("id","first_name","middle_name","last_name","link","username","gender","locale","verified");
+        $valores_permitidos = array("id","first_name","middle_name","last_name","link","username","gender","locale","verified","email");
         foreach($values as $c=>$v){
             if(in_array($c,$valores_permitidos)){
                 if($c == "id"){
@@ -29,8 +29,11 @@ class Gasolinazos_m extends CI_Model {
             }
         }
         $this->db->insert("usuario",$valores);
+        echo $this->db->last_query();
 //        var_dump($valores);
     }
+    
+    
 
 }
 

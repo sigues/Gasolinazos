@@ -231,7 +231,7 @@ class Gasolineras_m extends CI_Model {
         $this->db->select("reporte_profeco.*");
         $this->db->from("reporte_profeco");
         $this->db->where("gasolinera_idgasolinera",$idgasolinera);
-        $this->db->order_by("semaforo","desc");
+        $this->db->order_by("fecha","desc");
         $query = $this->db->get();
         $respuesta = array();
         foreach($query->result() as $row){

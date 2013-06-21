@@ -47,21 +47,10 @@
   ga('send', 'pageview');
 
 </script>
-<div id="fb-root"></div>
-<script src="<?=base_url()?>js/init.js"></script>
 <!--Below we include the Login Button social plugin. This button uses the JavaScript SDK to-->
 <!--present a graphical Login button that triggers the FB.login() function when clicked.-->
 <div id="fb_loginbutton">
-<?
-if($this->session->userdata('fbid')==false){
-?>
-<fb:login-button show-faces="false" width="200" max-rows="1"></fb:login-button>
-<?
-} else {
-echo "Hola ".$this->session->userdata("first_name");
-//var_dump($this->session->all_userdata());
-}
-?>
+<? $this->load->view('index/login'); ?>
 </div>
 		<!-- Header -->
 			<div id="header-wrapper">

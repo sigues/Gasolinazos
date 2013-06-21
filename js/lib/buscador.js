@@ -320,11 +320,30 @@ function parseDatos(data,buscador){
       var reportes_len = data[i].reportes.length;
       var promedio = data[i].promedio * 100;
       var reportes_len = data[i].reportes.length;
+      if(reportes_len>0){
+          var color_profeco = data[i].reportes[0].semaforo;
+          switch(color_profeco){
+              case "1":
+                  color_profeco = "green";
+              break;
+              case "2":
+                  color_profeco = "yellow";
+              break;
+              case "3":
+                  color_profeco = "red";
+              break;
+              default:
+                  color_profeco = "gray";
+              break;
+          }
+      }else{
+          var color_profeco = "gray";
+      }
       var color = "";
-      
+          
       color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
        $("#ul-resultados").append("<li class='"+color+"'>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
-          +"<br><small>Profeco: "+reportes_len+" distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
+          +"<br><small>Profeco: <img src='"+base_url+"images/light-"+color_profeco+".png' style='float:none' />  distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {
         e.preventDefault();
@@ -428,7 +447,7 @@ function calculaColor(promedio,votos,reportes){
             color = "green";
         } else if (promedio<0.85 && promedio>=0.65){
             color = "yellow";
-        } else if (promedio<0.65 && promedio>=0.01){
+        } else if (promedio<0.65 && promedio>=0.00 && votos>0){
             color = "red";
         } else {
             if(reportes_len>0){
