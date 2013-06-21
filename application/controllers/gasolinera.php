@@ -13,6 +13,8 @@ class Gasolinera extends CI_Controller {
             }else{
                 $data["ruta"]="false";            
             }
+            $data["usuario"] = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
+            
             $data["estacion"] = $this->gasolinera_m->getGasolineraByEstacion($estacion);
             $data["productos"] = $this->gasolinera_m->getProductosByIdgasolinera($data["estacion"]["idgasolinera"]);
             $data["reportes"] = $this->reporte_profeco->getReportesByEstacion($data["estacion"]["idgasolinera"]);

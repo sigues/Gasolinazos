@@ -139,7 +139,12 @@ class Gasolineras_m extends CI_Model {
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
 	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio");
-        $this->db->select("(select valor from voto where usuario_idusuario=$usuario and gasolinera_idgasolinera = gasolinera.idgasolinera order by idvoto desc limit 0,1) calificacion",false);
+        if($usuario!=false){
+            $this->db->select("(select valor from voto where usuario_idusuario=$usuario and gasolinera_idgasolinera = gasolinera.idgasolinera order by idvoto desc limit 0,1) calificacion",false);
+            $this->db->select("$usuario as usuario",false);
+        }else{
+            $this->db->select("0 as usuario",false);
+        }
         $this->db->from("gasolinera");
         $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
         $this->db->join("voto","gasolinera.idgasolinera = voto.gasolinera_idgasolinera","left");

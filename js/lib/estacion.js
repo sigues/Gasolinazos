@@ -5,7 +5,9 @@ $(document).ready(function() {
     if(latitud != "" && longitud != ""){
         initialize2();
     }
-
+    $(function() {
+        $( document ).tooltip();
+    });
 });
 
 

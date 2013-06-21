@@ -97,13 +97,13 @@
                     <div class="div_calificar">
                         <table border="1" class="calificar">
                             <tr>
-                                <td><button id="votoMas" class="<?=($calificacion==1)?"botonGris":"botonMas"?>" <?=($calificacion==0)?" onclick=\"votar(".$estacion["idgasolinera"].", 'mas');\"":""?>>+</button></td>
+                                <td><button id="votoMas" class="<?=($calificacion==1 || $usuario==0)?"botonGris":"botonMas"?>" <?=($calificacion!=1 && $usuario!=0)?" onclick=\"votar(".$estacion["idgasolinera"].", 'mas');\"":""?> <?=($usuario==0)?"title='Debe iniciar sesión para poder votar'":""?>>+</button></td>
                                 <td rowspan="2"><span id="promedio"><?=$promedio?></span>%<br>
                                                 <span id="votos"><?=$votos?></span> votos
                                 </td>
                             </tr>
                             <tr>
-                                <td><button id="votoMenos" class="<?=($calificacion==0)?"botonGris":"botonMenos"?>" <?=($calificacion==1)?"onclick=\"votar(".$estacion["idgasolinera"].", 'menos');\"":""?>>-</button></td>
+                                <td><button id="votoMenos" class="<?=($calificacion==0 || $usuario==0)?"botonGris":"botonMenos"?>" <?=($calificacion!=0 && $usuario!=0)?"onclick=\"votar(".$estacion["idgasolinera"].", 'menos');\"":""?>  <?=($usuario==0)?"title='Debe iniciar sesión para poder votar'":""?>>-</button></td>
                             </tr>
                         </table>
                     </div>

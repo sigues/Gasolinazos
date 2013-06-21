@@ -121,15 +121,6 @@ function cargaDatosMapa(data){
   var latitud = ($("#latitud").val()!=0)?$("#latitud").val():data[0].latitud;
   var longitud = ($("#longitud").val()!=0)?$("#longitud").val():data[0].longitud;
   if(length>0){
-     /* map = new GMaps({
-        div: '#map-canvas',
-        lat: latitud,
-        lng: longitud,
-        zoom: 15,
-        dragend: function(e) {
-            buscarGasolinerasCoord(e.center.jb,e.center.kb);
-        }
-      });*/
       var markers = new Array();
       var reportes = 0;
      // var bounds = new google.maps.LatLngBounds();
@@ -139,11 +130,10 @@ function cargaDatosMapa(data){
 //            console.log(data[i].reportes);
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
               var color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
-              console.log(data[i].calificacion);
-              var botonMas = (data[i].calificacion==0 || data[i].calificacion==null)?"botonMas":"botonGris";
-              var botonMenos = (data[i].calificacion==1 || data[i].calificacion==null)?"botonMenos":"botonGris";
-              var opcionMas = (data[i].calificacion==0 || data[i].calificacion==null)?'onclick="votar('+data[i].idgasolinera+',\'mas\');"' : 'title="Ya haz votado por esta gasolinera"';
-              var opcionMenos = (data[i].calificacion==1 || data[i].calificacion==null)?'onclick="votar('+data[i].idgasolinera+',\'menos\');"' : 'title="Ya haz votado por esta gasolinera"';
+              var botonMas = ((data[i].calificacion==0 || data[i].calificacion==null) && data[i].usuario!=0)?"botonMas":"botonGris";
+              var botonMenos = ((data[i].calificacion==1 || data[i].calificacion==null) && data[i].usuario!=0)?"botonMenos":"botonGris";
+              var opcionMas = ((data[i].calificacion==0 || data[i].calificacion==null) && data[i].usuario!=0)?'onclick="votar('+data[i].idgasolinera+',\'mas\');"' :(data[i].usuario==0)?'title="Debes iniciar sesión para poder votar"':'title="Ya haz votado por esta gasolinera"';
+              var opcionMenos = ((data[i].calificacion==1 || data[i].calificacion==null) && data[i].usuario!=0)?'onclick="votar('+data[i].idgasolinera+',\'menos\');"' :(data[i].usuario==0)?'title="Debes iniciar sesión para poder votar"':'title="Ya haz votado por esta gasolinera"';
               
             var marker = map.addMarker({
               
