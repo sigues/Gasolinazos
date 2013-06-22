@@ -13,7 +13,7 @@ $row = 1;
 if (($handle = fopen("Estaciones.csv", "r")) !== FALSE) {
     //$data = fgetcsv($handle, 1000, ",");var_dump($data);
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-		if($row>=6500){
+		if($row>=11000){
 			$time_end = microtime(true);
 			//dividing with 60 will give the execution time in minutes other wise seconds
 			$execution_time = ($time_end - $time_start)/60;
@@ -67,7 +67,14 @@ if (($handle = fopen("Estaciones.csv", "r")) !== FALSE) {
     fclose($handle);
 }
 
+$time_end = microtime(true);
+//dividing with 60 will give the execution time in minutes other wise seconds
+$execution_time = ($time_end - $time_start)/60;
 
+//execution time of the script
+echo '<b>Total Execution Time:</b> '.$execution_time.' Mins';
+
+die();
 
 
 function buscarEstado($nombre){
