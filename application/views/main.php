@@ -59,7 +59,7 @@
 						<div class="12u">
 
 							<!-- Logo -->
-								<h1><a href="#" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a></h1>
+								<h1><a href="<?=base_url()?>index.php" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a><?$this->load->view("index/follow_us");?></h1>
 							
 							<!-- Nav -->
 								<nav id="nav">
