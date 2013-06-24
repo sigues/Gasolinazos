@@ -29,7 +29,7 @@ class Gasolinazos_m extends CI_Model {
             }
         }
         $this->db->insert("usuario",$valores);
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
 //        var_dump($valores);
     }
     

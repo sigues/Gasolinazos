@@ -54,6 +54,19 @@ class Noticias_m extends CI_Model {
         return $noticias["noticias"];
     }
     
+    function getNoticiasPortada(){
+        $this->db->select("*");
+        $this->db->from("noticia");
+        $this->db->order_by("fecha","desc");
+        $this->db->limit(4);
+        $query = $this->db->get();
+        $noticias = array();
+        foreach($query->result() as $row){
+            $noticias[$row->idnoticia] = $row;
+        }
+        return $noticias;
+    }
+    
 }
 
 ?>

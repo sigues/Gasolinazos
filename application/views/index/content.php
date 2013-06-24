@@ -3,14 +3,17 @@
         <!-- Box #1 -->
                 <section>
                         <header>
-                                <h2>Who We Are</h2>
-                                <h3>A subheading about who we are</h3>
+                                <h2>¿Quienes Somos?</h2>
+                                <h3>Quienes formamos Gasolinazos.com</h3>
                         </header>
                         <a href="#" class="feature-image"><img src="images/pic05.jpg" alt="" /></a>
                         <p>
-                                Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. 
-                                Suspendisse eu varius nibh. Suspendisse vitae magna eget odio amet mollis 
-                                justo facilisis quis. Sed sagittis mauris amet tellus gravida lorem ipsum.
+                            Gasolinazos.com nace de la necesidad de compartir información entre los ciudadanos
+                            para obtener mejores servicios.</p>
+                        <p>
+                            La objetividad de las calificaciones del sitio radica en que nosotros no estamos involucrados
+                            de ninguna manera con ninguna gasolinera o institución gubernamental, las calificaciones del sitio
+                            provienen de PROFECO, pero también de los usuarios, por lo tanto nosotros no obtenemos ningún beneficio del contenido del sitio.
                         </p>
                 </section>
 
@@ -20,15 +23,16 @@
         <!-- Box #2 -->
                 <section>
                         <header>
-                                <h2>What We Do</h2>
-                                <h3>A subheading about what we do</h3>
+                                <h2>¿Que Ofrecemos?</h2>
+                                <h3>Un sistema de clasificación de gasolineras</h3>
                         </header>
                         <ul class="check-list">
-                                <li>Sed mattis quis rutrum accum</li>
-                                <li>Eu varius nibh suspendisse lorem</li>
-                                <li>Magna eget odio amet mollis justo</li>
-                                <li>Facilisis quis sagittis mauris</li>
-                                <li>Amet tellus gravida lorem ipsum</li>
+                                <li>Indica sus estaciones mas cercanas</li>
+                                <li>Vea la ruta a la estación seleccionada</li>
+                                <li>Con información de PROFECO</li>
+                                <li>Con información de Usuarios</li>
+                                <li>Indica los productos disponibles</li>
+                                <li>Y más...</li>
                         </ul>
                 </section>
 
@@ -38,26 +42,20 @@
         <!-- Box #3 -->
                 <section>
                         <header>
-                                <h2>What People Are Saying</h2>
-                                <h3>And a final subheading about our clients</h3>
+                                <h2>¿Qué opina la gente?</h2>
+                                <h3>Comentarios de Facebook</h3>
                         </header>
-                        <ul class="quote-list">
-                                <li>
-                                        <img src="images/pic06.jpg" alt="" />
-                                        <p>"Neque nisidapibus mattis"</p>
-                                        <span>Jane Doe, CEO of UntitledCorp</span>
-                                </li>
-                                <li>
-                                        <img src="images/pic07.jpg" alt="" />
-                                        <p>"Lorem ipsum consequat!"</p>
-                                        <span>John Doe, President of FakeBiz</span>
-                                </li>
-                                <li>
-                                        <img src="images/pic08.jpg" alt="" />
-                                        <p>"Magna veroeros amet tempus"</p>
-                                        <span>Mary Smith, CFO of UntitledBiz</span>
-                                </li>
-                        </ul>
+                    <p>
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                          var js, fjs = d.getElementsByTagName(s)[0];
+                          if (d.getElementById(id)) return;
+                          js = d.createElement(s); js.id = id;
+                          js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=465561006870893";
+                          fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-comments" data-href="<?=current_url()?>" data-width="300" data-num-posts="6"></div>
+                    </p>
                 </section>
 
 </div>

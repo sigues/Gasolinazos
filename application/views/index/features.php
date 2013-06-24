@@ -1,12 +1,37 @@
+<?
+$CI = & get_instance();
+    
+$CI->load->model("noticias_m");
+$noticias = $CI->noticias_m->getNoticiasPortada();
+$x=0;
+?>
 <div id="features-wrapper">
     <div id="features">
             <div class="container">
                     <div class="row">
+                        <?
+                        foreach($noticias as $noticia){ ?>
                             <div class="3u">
 
-                                    <!-- Feature #1 -->
+                                    <!-- Feature #<?=$x?> -->
                                             <section>
-                                                    <a href="#" class="bordered-feature-image"><img src="images/pic01.jpg" alt="" /></a>
+                                                <? if(isset($noticia->imagen) && $noticia->imagen!=""){ ?>
+                                                    <a href="<?=base_url()?>index.php/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>" class="bordered-feature-image"><img src="<?=base_url()?><?=$noticia->imagen?>" alt="<?=$noticia->imagen_texto?>" /></a>
+                                                <? } ?>
+                                                    <h2><a href="<?=base_url()?>index.php/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>"><?=substr($noticia->titulo,0,40)?></a></h2>
+                                                    <?=$noticia->resumen?>
+                                            </section>
+
+                            </div>
+                        <? $x++; 
+                        } ?>
+                        <? if($x < 4) { 
+                            while($x<4) {?>
+                            <div class="3u">
+
+                                    <!-- Feature #<?=$x?> -->
+                                            <section>
+                                                    <a href="#" class="bordered-feature-image"><img src="<?=base_url()?>images/pic01.jpg" alt="" /></a>
                                                     <h2>Welcome to Halcyonic</h2>
                                                     <p>
                                                         Si no se le encuentra <strong>ningún</strong> uso a este div, 
@@ -19,47 +44,9 @@
                                             </section>
 
                             </div>
-                            <div class="3u">
-
-                                    <!-- Feature #2 -->
-                                            <section>
-                                                    <a href="#" class="bordered-feature-image"><img src="images/pic02.jpg" alt="" /></a>
-                                                    <h2>Responsive You Say?</h2>
-                                                    <p>
-                                                            Yes! Halcyonic is built on the <a href="http://skeljs.org">skel.js</a>
-                                                            framework, so it has full responsive support for desktop, tablet,
-                                                            and mobile device displays.
-                                                    </p>
-                                            </section>
-
-                            </div>
-                            <div class="3u">
-
-                                    <!-- Feature #3 -->
-                                            <section>
-                                                    <a href="#" class="bordered-feature-image"><img src="images/pic03.jpg" alt="" /></a>
-                                                    <h2>License Info</h2>
-                                                    <p>
-                                                            Halcyonic is licensed under the <a href="http://html5up.net/license">CCA 3.0</a> license,
-                                                            so use it for personal or commercial use as much as you like (just keep
-                                                            the footer credit intact).
-                                                    </p>
-                                            </section>
-
-                            </div>
-                            <div class="3u">
-
-                                    <!-- Feature #4 -->
-                                            <section>
-                                                    <a href="#" class="bordered-feature-image"><img src="images/pic04.jpg" alt="" /></a>
-                                                    <h2>Volutpat etiam aliquam</h2>
-                                                    <p>
-                                                            Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. Suspendisse 
-                                                            eu varius nibh. Suspendisse vitae magna eget odio amet mollis.
-                                                    </p>
-                                            </section>
-
-                            </div>
+                        <? $x++;
+                            }
+                        } ?>
                     </div>
             </div>
     </div>
