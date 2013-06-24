@@ -1,23 +1,25 @@
 <div class="9u">
 
         <!-- Main Content -->
-                <section>
+               
                     
                     <? foreach($noticias as $noticia){?>
+         <section>
+             <? if(isset($noticia->imagen) && $noticia->imagen!=""){ ?>
+                    <div class="imagenNoticia"><img src="<?=base_url()?><?=$noticia->imagen?>" width="200px" /><span><?=$noticia->imagen_texto?></span></div>
+                <? } ?>
+                            
                         <header>
                                 <h2><a href="<?=base_url()?>index.php/gasolinazos/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>"><?=$noticia->titulo?></a></h2>
                                 <h3>Publicada el <?=date("d/m/Y",strtotime($noticia->fecha))?>, <?=$noticia->vistas?> Visitas</h3>
                         </header>
                         <p>
-                            <? if(isset($noticia->imagen) && $noticia->imagen!=""){ ?>
-                                <div class="imagenNoticia"><img src="<?=base_url()?><?=$noticia->imagen?>" width="200px" /><span><?=$noticia->imagen_texto?></span></div>
-                            <? } ?>
                                 <?=$noticia->resumen?>
                         </p>
-                    
+        </section>
+
                     <? } ?>
 
-                </section>
 <section>
     <p>Página: <?
     $paginas = ceil($count_noticias/5);
