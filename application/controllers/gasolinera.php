@@ -39,6 +39,8 @@ class Gasolinera extends CI_Controller {
             $data=array();
             $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($gasolinera,$usuario);
             if($data["calificacion"]!=$voto && $usuario!=0){
+//
+                                $this->gasolinera_m->deleteCalificacionByUsuario($gasolinera,$usuario);
                 $voto = array("valor"=>$voto,"gasolinera_idgasolinera"=>$gasolinera,"usuario_idusuario"=>$usuario);
                 $this->gasolinera_m->voto($voto);
             }

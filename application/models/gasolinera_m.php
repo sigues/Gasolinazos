@@ -173,6 +173,11 @@ class Gasolinera_m extends CI_Model {
         return $calificacion;
     }
 
+    function deleteCalificacionByUsuario($idgasolinera,$idusuario){
+        $this->db->delete("voto",array("gasolinera_idgasolinera"=>$idgasolinera, "usuario_idusuario"=>$idusuario));
+//        echo $this->db->last_query();
+    }
+
 }
 
 ?>

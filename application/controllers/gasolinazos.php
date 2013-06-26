@@ -27,6 +27,12 @@ class Gasolinazos extends CI_Controller {
             //$data["content"] = $this->load->view('principal',$data,true);
         }
         
+        public function mobile(){
+                $this->load->model("gasolineras_m");
+                $data["estados"] = $this->gasolineras_m->getEstados();
+                $this->load->view('movil/test1',$data);
+        }
+        
 	public function noticias()
 	{
             $pagina = $this->uri->segment(3);
