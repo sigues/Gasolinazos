@@ -587,3 +587,7 @@
             font-size: xx-large;
         }
         
+        .li-buscador a:hover{
+            text-decoration: underline;
+        }
+        

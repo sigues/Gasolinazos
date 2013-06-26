@@ -62,6 +62,8 @@
                             <input type="hidden" id="position" value="false" />
                             <input type="hidden" id="geo-lat" value="0" />
                             <input type="hidden" id="geo-lng" value="0" />
+                            <input type="hidden" id="current-marker" value="0" />
+                            <input type="hidden" id="current-marker-color" value="0" />
                         </div>
                 </section>
 </div>

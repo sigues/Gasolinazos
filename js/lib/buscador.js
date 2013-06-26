@@ -342,7 +342,7 @@ function parseDatos(data,buscador){
       var color = "";
           
       color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
-       $("#ul-resultados").append("<li class='"+color+"'>"+data[i].nombre+" <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% <a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"'>(ver perfil)</a> <a href='#map-canvas' class='pan-to-marker' data-marker-index='"+(i+j)+"'>Ubicar</a></small>"
+       $("#ul-resultados").append("<li class='"+color+"'><a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"' class='pan-to-marker' data-marker-index='"+(i+j)+"' color='"+color+"' style='color:#000000;text-decoration: none;'>"+data[i].nombre+"</a> <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% </small>"
           +"<br><small>Profeco: <img src='"+base_url+"images/light-"+color_profeco+".png' style='float:none' />  distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {
@@ -353,19 +353,26 @@ function parseDatos(data,buscador){
         var $index = $(this).data('marker-index');
         var $lat = $(this).data('marker-lat');
         var $lng = $(this).data('marker-lng');
-
+        var color = $(this).attr("color");
         if ($index != undefined) {
           // using indices
           var position = map.markers[$index].getPosition();
           lat = position.lat();
           lng = position.lng();
+          var lastMarker = $("#current-marker").val();
+          var lastMarkerColor = $("#current-marker-color").val();
+          if(lastMarkerColor != 0){
+            map.markers[lastMarker].setIcon( $("#base_url").val()+'images/marker-'+lastMarkerColor+'.png');
+          }
+          $("#current-marker").val($index);
+          $("#current-marker-color").val(color);
+          map.markers[$index].setIcon( $("#base_url").val()+'images/marker-'+color+'-100.png');
         }
         else {
           // using coordinates
           lat = $lat;
           lng = $lng;
         }
-
         map.setCenter(lat, lng);
       });
     cargaDatosMapa(data);
