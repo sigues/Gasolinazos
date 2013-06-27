@@ -58,11 +58,14 @@ class Gasolinazos extends CI_Controller {
             
             $data=array();
             $data["fbid"] = $fbid;
+            $data["idusuario"] = $this->session->userdata("idusuario");
+            
             $this->load->helper(array('form', 'url'));
 
             $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('correo', 'Correo', 'required|valid_email');
+            if($data["idusuario"] == false){
+                $this->form_validation->set_rules('correo', 'Correo', 'required|valid_email');
+            }
             $this->form_validation->set_rules('mensaje', 'Mensaje', 'required|min_length[5]|max_length[130]|xss_clean');
 
             if ($this->form_validation->run() == FALSE)

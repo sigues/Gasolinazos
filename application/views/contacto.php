@@ -28,12 +28,15 @@ $(document).ready(function() {
                                 <h3>¿Tienes preguntas, opiniones, sugerencias o quieres reportar problemas? ¡escríbenos!</h3>
                         </header>
                         <form action="" method="post" id="contacto" name="contacto">
+                            <? 
+                            if($idusuario == false) {?>
                             <font color="red"><? echo form_error('correo'); ?></font>
                             Correo electrónico: <input name="correo" id="correo" value="<?php echo set_value('correo'); ?>"/><br/>
+                            <? } ?>
                             Mensaje:<br/>
                             <font color="red"><? echo form_error('mensaje'); ?></font>
                             <textarea rows="5" cols="60" id="mensaje" name="mensaje"><?php echo set_value('mensaje'); ?></textarea><br><br>
-                            <button <?=(!$fbid)?" title='Debe registrarse en el sistema con facebook, en la esquina superior derecha de la pantalla. ' class='botonGris'  onclick='alert(\"Debe registrarse en el sistema con facebook, en la esquina superior derecha de la pantalla. \");return false;'":" onclick='contacto.submit()' class='botonMas' "?> name="enviar" id="enviar"  >Enviar</button>
+                            <button  onclick='contacto.submit();' class='botonMas' name="enviar" id="enviar"  >Enviar</button>
                             
                         </form>
                             

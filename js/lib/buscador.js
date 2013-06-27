@@ -137,7 +137,7 @@ function cargaDatosMapa(data){
               icon: $("#base_url").val()+'images/marker-'+color+'.png',
               infoWindow: {
                 content: '<!--<div id="infowindow_'+data[i].idgasolinera+'"></div><p>'+data[i].nombre+'<br>'+
-                    '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+'<a href="'+$("#base_url").val()+'/index.php/gasolinera/estacion/'+data[i].estacion+'/ruta">Calcular Ruta</a>'+
+                    '<small>'+data[i].direccion+'</small>'+'</p>-->'+'<div class="div_calificar">'+'<a href="#mapa" onclick=calculaRuta('+data[i].idgasolinera+');>Calcular Ruta</a>'+
 '                        <table border="1" class="calificar">'+
 '                            <tr>'+
 '                                <td><button id="votoMas_'+data[i].idgasolinera+'" class="'+botonMas+'" '+opcionMas+'>+</button></td>'+
@@ -545,7 +545,7 @@ function calculaRuta(idgasolinera){
 
 function trazaRuta(latitud,longitud,estacion){
         $("#ul-resultados").html("");
-        $('#ul-resultados').append('<li onclick="buscarGasolinerasCoord('+latitud+','+longitud+');" id="regresarListado"><b>Regresar a listado</b><input type="hidden" id="hayListado" value="1"></span></li>');
+        $('#ul-resultados').append('<li onclick="buscarGasolinerasCoord('+latitud+','+longitud+');" id="regresarListado"><b><font color=green>Regresar a listado</font></b><input type="hidden" id="hayListado" value="1"></span></li>');
         $('#ul-resultados').append('<li><b>'+estacion.estacion+" "+estacion.nombre+'</b></li>');
         map.drawRoute({
             origin: [$("#geo-lat").val(), $("#geo-lng").val()],

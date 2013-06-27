@@ -86,6 +86,7 @@
             <button class="botonMas" id="btnAltaGasolinera">Enviar</button></div>
         <div id="gracias" style="display:none"><h1>Gracias!!</h1></div>
         <div id="map-canvas"></div>
+        <span><b><a href="<?=base_url()?>index.php/gasolinazos/contacto">¿Te gusta esto? contrátame</a></b></span>
     </section>
 </div>
                     
