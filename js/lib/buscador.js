@@ -14,14 +14,12 @@ $(document).ready(function() {
     $('[name="filtros"]').change(function(){
         if($("#geo-lat").val() != 0 && $("#geo-lng").val()!= 0){
                     buscarGasolinerasCoord($("#geo-lat").val(), $("#geo-lng").val());
-
         }
     });
     $('.checkServicios').change(function(){
         if($("#geo-lat").val() != 0 && $("#geo-lng").val()!= 0){
                     buscarGasolinerasCoord($("#geo-lat").val(), $("#geo-lng").val());
-
-        }
+       }
     });
     $("#btn-buscadorAvanzado").click(function(){
         $("#buscadorAvanzado").slideToggle(500);
@@ -72,12 +70,13 @@ function initialize2(data){
         lng: -99.098053,
         zoom: 15,
         dragend: function(e) {
-            buscarGasolinerasCoord(e.center.jb,e.center.kb);
+            if($("#hayListado").val() == null){
+                buscarGasolinerasCoord(e.center.jb,e.center.kb);
+            }
         }
       });
       GMaps.geolocate({
         success: function(position) {
-           // alert(position.coords.latitude+", "+position.coords.longitude);
           map.setCenter(position.coords.latitude, position.coords.longitude);
           $("#geo-lat").val(position.coords.latitude);
           $("#geo-lng").val(position.coords.longitude);
@@ -110,9 +109,7 @@ function initialize2(data){
         always: function() {
          // alert("Done!");
         }
-
       });
-        
   return;
 }
 
@@ -123,18 +120,15 @@ function cargaDatosMapa(data){
   if(length>0){
       var markers = new Array();
       var reportes = 0;
-     // var bounds = new google.maps.LatLngBounds();
       for (var i = 0; i < length; i++) {
-//          alert(data[i].latitud+" - "+data[i].longitud);
-            reportes = data[i].reportes.length;
-//            console.log(data[i].reportes);
+          reportes = data[i].reportes.length;
           if(data[i].latitud != null && data[i].longitud != null && data[i].idgasolinera!= undefined){
               var color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
               var botonMas = ((data[i].calificacion==0 || data[i].calificacion==null) && data[i].usuario!=0)?"botonMas":"botonGris";
               var botonMenos = ((data[i].calificacion==1 || data[i].calificacion==null) && data[i].usuario!=0)?"botonMenos":"botonGris";
               var opcionMas = ((data[i].calificacion==0 || data[i].calificacion==null) && data[i].usuario!=0)?'onclick="votar('+data[i].idgasolinera+',\'mas\');"' :(data[i].usuario==0)?'title="Debes iniciar sesión para poder votar"':'title="Ya haz votado por esta gasolinera"';
               var opcionMenos = ((data[i].calificacion==1 || data[i].calificacion==null) && data[i].usuario!=0)?'onclick="votar('+data[i].idgasolinera+',\'menos\');"' :(data[i].usuario==0)?'title="Debes iniciar sesión para poder votar"':'title="Ya haz votado por esta gasolinera"';
-              
+              var votos = (data[i].votos == null) ? 0 : data[i].votos;
             var marker = map.addMarker({
               
               lat: data[i].latitud,
@@ -148,7 +142,7 @@ function cargaDatosMapa(data){
 '                            <tr>'+
 '                                <td><button id="votoMas_'+data[i].idgasolinera+'" class="'+botonMas+'" '+opcionMas+'>+</button></td>'+
 '                                <td rowspan="2"><span id="promedio_voto_'+data[i].idgasolinera+'">'+(data[i].promedio*100)+'</span>%<br>'+
-'                                                <span id="votos_voto_'+data[i].idgasolinera+'">'+data[i].votos+'</span> votos'+
+'                                                <span id="votos_voto_'+data[i].idgasolinera+'">'+votos+'</span> votos'+
 '                                </td>'+
 '                            </tr>'+
 '                            <tr>'+
@@ -156,17 +150,11 @@ function cargaDatosMapa(data){
 '                            </tr>'+
 '                        </table>'+
 '                    </div>'
-
               }
-              
             });
-            
             markers[i] = data[i].idgasolinera;
           }
       }
-
-      //console.log(markers)
-      //http://hpneo.github.io/gmaps/examples/interacting.html
   }
   return;
 }
@@ -188,8 +176,6 @@ function buscarGasolineras(pagina){
                 success: function( data ){
                     parseDatos(data,"buscador");
                     map.setZoom(13);
-                //    console.log(data);
-//                    activarInfowindow(data);
                 }
             }							
         );
@@ -200,8 +186,6 @@ function buscarGasolinerasCoord(latitud,longitud,pagina){
     $("#latitud").val(latitud);
     $("#longitud").val(longitud);
     $("#position").val("true");
-//    console.log($("#latitud").val(latitud));
-//    console.log($("#longitud").val(longitud));
     var filtros_ar = filtrar();
     $.ajax(
             {
@@ -251,6 +235,7 @@ function parseDatos(data,buscador){
     var lenAnt = $("#markers").val();
     if(lenAnt>0){
         map.removeMarkers();
+        map.removePolylines();
         $("#position").val("false");
     }
     var latitud = 0;
@@ -301,10 +286,6 @@ function parseDatos(data,buscador){
     var j;
     if($("#position").val()=="false"){
         j=0;
-    /*    var pos = map.markers[0];
-        if(pos === undefined){ //por alguna razón cuando hay geoloc, el primer marker a veces es 1 y a veces es 2
-            j=1;
-        }*/
     }else{
         j=1;
         if(map.markers[1] === undefined){
@@ -340,10 +321,11 @@ function parseDatos(data,buscador){
           var color_profeco = "gray";
       }
       var color = "";
-          
       color = calculaColor(data[i].promedio,data[i].votos,data[i].reportes);
-       $("#ul-resultados").append("<li class='"+color+"'><a href='"+base_url+"index.php/gasolinera/estacion/"+data[i].estacion+"' class='pan-to-marker' data-marker-index='"+(i+j)+"' color='"+color+"' style='color:#000000;text-decoration: none;'>"+data[i].nombre+"</a> <small><b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% </small>"
-          +"<br><small>Profeco: <img src='"+base_url+"images/light-"+color_profeco+".png' style='float:none' />  distancia:"+data[i].distancia.toFixed(2)+" metros<small></li>");
+      var nombreGasolinera = data[i].nombre.substr(0,25);
+      var distanciaGasolinera = (data[i].distancia<1000)?data[i].distancia.toFixed(2)+" m." : (data[i].distancia/1000).toFixed(2)+" km."
+       $("#ul-resultados").append("<li class='"+color+"' title='"+data[i].direccion+"' onclick='calculaRuta("+data[i].idgasolinera+");'><a href='#mapa' class='pan-to-marker' data-marker-index='"+(i+j)+"' color='"+color+"' style='color:#000000;text-decoration: none;'><span class='nombreEstacion'>"+nombreGasolinera+"<small> <b id='promedio_"+data[i].idgasolinera+"'>"+promedio+"</b>% </small></span></a> "
+          +"<small>Profeco: <img src='"+base_url+"images/light-"+color_profeco+".png' style='float:none' />  distancia:"+distanciaGasolinera+"<small></li>");
     }
     $(document).on('mouseover', '.pan-to-marker', function(e) {
         e.preventDefault();
@@ -416,12 +398,9 @@ function votar(idgasolinera,tipo){
                 }else{
                     $("#votoMas_"+idgasolinera).removeAttr('onclick');
                     $("#votoMenos_"+idgasolinera).attr('onclick','votar('+idgasolinera+',"menos");');
-                    
                 }
-                
         }
-    }							
-    );
+    });
 }
 
 function altaGasolinera(){
@@ -516,4 +495,81 @@ function filtrar(){
     }
    
     return filtros_ar;
+}
+
+function calculaRuta(idgasolinera){
+    if($("#geo-lat").val() == 0 && $("#geo-lng").val() == 0){
+        alert("Debe habilitar la geolocalización en su explorador para poder calcular rutas");
+        return false;
+    }
+    map.removeMarkers();
+    $.ajax({
+        url:$("#base_url").val()+"index.php/gasolinera/estacionByID",
+        data:{
+            idgasolinera:idgasolinera
+        },
+        type:"post",
+        dataType: "json",
+        success:function(data){
+          var marker = map.addMarker({
+            lat: data.latitud,
+            lng: data.longitud,
+            icon: $("#base_url").val()+'images/marker-star.png',
+            title: "PEMEX estación "+data.estacion
+          });   
+            
+          map.setCenter($("#geo-lat").val(), $("#geo-lng").val());
+          var marker = map.addMarker({
+              lat: $("#geo-lat").val(),
+              lng: $("#geo-lng").val(),
+              title: "Usted está aquí",
+              icon: "https://maps.google.com/mapfiles/kml/shapes/"+'poi.png',
+              draggable:true,
+              infoWindow: {
+                content: '<p>'+"usted está aquí"+'</p>'
+              }
+            });
+            google.maps.event.addListener(marker, 'dragend', function() {
+                map.removePolylines();
+                var position = marker.getPosition();
+                var lat = position.lat();
+                var lng = position.lng();
+                $("#geo-lat").val(lat);
+                $("#geo-lng").val(lng);
+                trazaRuta(data.latitud,data.longitud,data);
+            });
+            trazaRuta(data.latitud,data.longitud,data);
+        }
+    });
+}
+
+function trazaRuta(latitud,longitud,estacion){
+        $("#ul-resultados").html("");
+        $('#ul-resultados').append('<li onclick="buscarGasolinerasCoord('+latitud+','+longitud+');" id="regresarListado"><b>Regresar a listado</b><input type="hidden" id="hayListado" value="1"></span></li>');
+        $('#ul-resultados').append('<li><b>'+estacion.estacion+" "+estacion.nombre+'</b></li>');
+        map.drawRoute({
+            origin: [$("#geo-lat").val(), $("#geo-lng").val()],
+            destination: [latitud,longitud],
+            travelMode: 'driving',
+            strokeColor: '#131540',
+            strokeOpacity: 0.6,
+            strokeWeight: 6
+        });
+        var i=0;var clase="";
+        map.travelRoute({
+            origin: [$("#geo-lat").val(), $("#geo-lng").val()],
+            destination: [latitud,longitud],
+            travelMode: 'driving',
+            step: function(e) {
+                if(i==0){
+                    clase="non";
+                    i=1;
+                }else{
+                    clase="par";
+                    i=0;
+                }
+              $('#ul-resultados').append('<li class="'+clase+'">'+e.instructions+'</li>');
+              $('#ul-resultados li:eq(' + e.step_number + ')').delay(450 * e.step_number);
+            }
+          });
 }

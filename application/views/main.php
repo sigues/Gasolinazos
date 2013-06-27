@@ -49,9 +49,7 @@
 </script>
 <!--Below we include the Login Button social plugin. This button uses the JavaScript SDK to-->
 <!--present a graphical Login button that triggers the FB.login() function when clicked.-->
-<div id="fb_loginbutton">
-<? $this->load->view('index/login'); ?>
-</div>
+
 		<!-- Header -->
 			<div id="header-wrapper">
 				<header id="header" class="container">
@@ -59,7 +57,7 @@
 						<div class="12u">
 
 							<!-- Logo -->
-								<h1><a href="<?=base_url()?>index.php" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /></a><?$this->load->view("index/follow_us");?></h1>
+								<h1><a href="<?=base_url()?>index.php" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /><?$this->load->view("index/follow_us");?></h1></a>
 							
 							<!-- Nav -->
 								<nav id="nav">
@@ -68,7 +66,8 @@
 									<a href="<?=base_url()?>index.php/gasolinazos/noticias">Noticias</a>
 									<a href="<?=base_url()?>index.php/gasolinazos/contacto">Contacto</a>
 								</nav>
-
+<div id="fb_loginbutton"><? $this->load->view('index/login'); ?>
+</div>
 						</div>
 					</div>
 				</header>

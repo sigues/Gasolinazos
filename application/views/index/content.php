@@ -3,10 +3,9 @@
         <!-- Box #1 -->
                 <section>
                         <header>
-                                <h2>¿Quienes Somos?</h2>
+                                <h2>¿Quiénes Somos?</h2>
                                 <h3>Quienes formamos Gasolinazos.com</h3>
                         </header>
-                        <a href="#" class="feature-image"><img src="images/pic05.jpg" alt="" /></a>
                         <p>
                             Gasolinazos.com nace de la necesidad de compartir información entre los ciudadanos
                             para obtener mejores servicios.</p>
@@ -23,14 +22,14 @@
         <!-- Box #2 -->
                 <section>
                         <header>
-                                <h2>¿Que Ofrecemos?</h2>
+                                <h2>¿Qué Ofrecemos?</h2>
                                 <h3>Un sistema de clasificación de gasolineras</h3>
                         </header>
                         <ul class="check-list">
                                 <li>Indica sus estaciones mas cercanas</li>
                                 <li>Vea la ruta a la estación seleccionada</li>
                                 <li>Con información de PROFECO</li>
-                                <li>Con información de Usuarios</li>
+                                <li>Con votos y comentarios de Usuarios</li>
                                 <li>Indica los productos disponibles</li>
                                 <li>Y más...</li>
                         </ul>

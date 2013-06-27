@@ -3,7 +3,8 @@ $time_start = microtime(true);
 include("estaciones.class.php");
 set_time_limit(0);
 
-$db = mysql_connect("localhost","root","");
+$db = mysql_connect("skrik1893.startlogicmysql.com","gasolinazos","gasolinazos");
+	
 mysql_select_db("gasolinazos");
 
 $estacion = new estaciones();

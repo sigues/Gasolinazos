@@ -54,6 +54,17 @@ class Gasolinera_m extends CI_Model {
         return $query->row_array();
     }
     
+    function getGasolineraByID($idgasolinera) {
+        $this->db->select("gasolinera.*,ciudad.nombre nombre_ciudad,estado.nombre nombre_estado");
+        $this->db->from("gasolinera");
+        $this->db->join("ciudad","gasolinera.ciudad_idciudad = ciudad.idciudad");
+        $this->db->join("estado","ciudad.estado_idestado = estado.idestado");
+        $this->db->where("gasolinera.idgasolinera",$idgasolinera);
+        //        $query = $this->db->query("SELECT * FROM gasolinera WHERE estacion = ?", array($estacion));
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
     function getProductosByIdgasolinera($idgasolinera){
         $this->db->select("zona_has_producto.precio, producto.nombre, producto.idproducto");
         $this->db->from("producto");

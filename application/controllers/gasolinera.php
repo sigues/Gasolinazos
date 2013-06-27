@@ -30,6 +30,36 @@ class Gasolinera extends CI_Controller {
             $this->load->view('main',$data);
 	}
         
+        public function estacionByID()
+	{
+            
+            $idgasolinera = $this->input->post("idgasolinera");
+            $this->load->model('gasolinera_m');
+            /*$this->load->model('reporte_profeco');
+            $this->load->model('gasolineras_m');
+            if($this->uri->segment(4) == "ruta"){
+                $data["ruta"]="true";
+            }else{
+                $data["ruta"]="false";            
+            }
+            $data["usuario"] = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
+            */
+            $data["estacion"] = $this->gasolinera_m->getGasolineraByID($idgasolinera);
+            /*$data["productos"] = $this->gasolinera_m->getProductosByIdgasolinera($data["estacion"]["idgasolinera"]);
+            $data["reportes"] = $this->reporte_profeco->getReportesByEstacion($data["estacion"]["idgasolinera"]);
+            $promedio = $this->gasolinera_m->getPromedioGasolinera($data["estacion"]["idgasolinera"]);
+            $data["promedio"] = $promedio->promedio*100;
+            $usuario = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
+            $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($data["estacion"]["idgasolinera"],$usuario);
+            $data["votos"] = $promedio->votos;
+            $data["gasolineras"] = $this->gasolinera_m->getGasolineras();
+            $data["gasolineras"] = $this->gasolineras_m->buscarGasolinerasCoord($data["estacion"]["latitud"],$data["estacion"]["longitud"]);
+            //var_dump($gasolineras);
+            $data["content"] = $this->load->view('estacion',$data,true);
+            $this->load->view('main',$data);*/
+            echo json_encode($data["estacion"]);
+	}
+        
         public function voto(){
             $voto = $this->input->post('voto');
             $gasolinera = $this->input->post('gasolinera');

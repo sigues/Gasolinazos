@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,300,200);
 @import url(http://fonts.googleapis.com/css?family=Lobster);
-
+@import url(http://fonts.googleapis.com/css?family=Alef);
 /*
 	Halcyonic 3.0 by HTML5 UP
 	html5up.net | @n33co
@@ -21,8 +21,8 @@
 	body, input, textarea, select
 	{
 		color: #474f51;
-		font-size: 13.5pt;
-		font-family: 'Yanone Kaffeesatz';
+		font-size: 9.5pt;
+		font-family: 'Alef';
 		line-height: 1.85em;
 		font-weight: 300;
 	}
@@ -150,7 +150,7 @@
 		.check-list li
 		{
 			padding: 0.7em 0 0.7em 45px;
-			font-size: 1.2em;
+			font-size: 1.0em;
 			background: url('images/icon-checkmark.png') 0px 1.05em no-repeat;
 		}
 		
@@ -251,6 +251,11 @@
 		background-image: -o-linear-gradient(top, #ce1a00, #ed391b);
 		background-image: linear-gradient(top, #ce1a00, #ed391b);
 	}
+        
+        #nav {
+            font-size: 13.5pt;
+		
+        }
         
         .div_calificar{
             height:225px;
@@ -421,14 +426,16 @@
         }
         
         #buscador{
-            background: rgb(122,188,255); /* Old browsers */
-            background: -moz-linear-gradient(top, rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(122,188,255,1)), color-stop(44%,rgba(96,171,248,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Opera 11.10+ */
-            background: -ms-linear-gradient(top, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* IE10+ */
-            background: linear-gradient(to bottom, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* W3C */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+            
+            background: #398235; /* Old browsers */
+background: -moz-linear-gradient(top, #398235 0%, #8ab66b 72%, #c3dd80 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#398235), color-stop(72%,#8ab66b), color-stop(100%,#c3dd80)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #398235 0%,#8ab66b 72%,#c3dd80 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #398235 0%,#8ab66b 72%,#c3dd80 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #398235 0%,#8ab66b 72%,#c3dd80 100%); /* IE10+ */
+background: linear-gradient(to bottom, #398235 0%,#8ab66b 72%,#c3dd80 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', endColorstr='#c3dd80',GradientType=0 ); /* IE6-9 */
+            
             height:1%;
             -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
             -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -440,6 +447,10 @@
             text-shadow:2px 2px 1px #000000;
             color:#efefef;
             overflow:hidden;
+            padding-top:10px;
+            -moz-box-shadow: 5px 5px 5px #888;
+            -webkit-box-shadow: 10px 10px 5px #888;
+            box-shadow: 5px 5px 7px #999;
         }
         
         #buscadorAvanzado{
@@ -487,7 +498,22 @@
             width:290px;
             float: left;
         }
-  */      #mapa{
+  */      
+        #resultados{
+            overflow:auto;
+            height: 600px;
+        }
+        
+        #resultados .nombreEstacion{
+            color: #474f51;
+            font-size: 13.5pt;
+            font-family: 'Yanone Kaffeesatz';
+            line-height: 1.85em;
+            font-weight: 300;
+            margin-left: 5px;
+        }
+
+        #mapa{
             margin-top: 30px;
             display: inline-block;
             padding-right:15px;
@@ -508,6 +534,11 @@
         #map-canvas{
             height: 100%
         }
+        
+        #regresarListado{
+            cursor: pointer;
+        }
+        
         #fb_loginbutton{
             float: right;
             margin-right: 30px;
@@ -591,3 +622,13 @@
             text-decoration: underline;
         }
         
+        #banner {
+            background: #398235; /* Old browsers */
+            background: -moz-linear-gradient(top, #398235 0%, #8ab66b 56%, #c9de96 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#398235), color-stop(56%,#8ab66b), color-stop(100%,#c9de96)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* IE10+ */
+            background: linear-gradient(to bottom, #398235 0%,#8ab66b 56%,#c9de96 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', endColorstr='#c9de96',GradientType=0 ); /* IE6-9 */
+        }

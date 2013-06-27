@@ -37,7 +37,7 @@ class estaciones{
 	public $db;
 	
 	public function estaciones(){
-		$this->db = mysql_connect("localhost","root","");
+		$this->db = mysql_connect("skrik1893.startlogicmysql.com","gasolinazos","gasolinazos");
 		mysql_select_db("gasolinazos");
 	}
 	
