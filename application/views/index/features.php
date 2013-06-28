@@ -18,7 +18,7 @@ $x=0;
                                                 <? if(isset($noticia->imagen) && $noticia->imagen!=""){ ?>
                                                     <a href="<?=base_url()?>index.php/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>" class="bordered-feature-image"><img src="<?=base_url()?><?=$noticia->imagen?>" alt="<?=$noticia->imagen_texto?>" /></a>
                                                 <? } ?>
-                                                    <h2><a href="<?=base_url()?>index.php/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>"><?=substr($noticia->titulo,0,40)?></a></h2>
+                                                    <h2><a href="<?=base_url()?>index.php/noticia/<?=$noticia->idnoticia?>/<?=url_title($noticia->titulo)?>"><?=substr($noticia->titulo,0,150)?></a></h2>
                                                     <?=$noticia->resumen?>
                                             </section>
 
