@@ -57,6 +57,7 @@ class Gasolinera extends CI_Controller {
             //var_dump($gasolineras);
             $data["content"] = $this->load->view('estacion',$data,true);
             $this->load->view('main',$data);*/
+			header('Access-Control-Allow-Origin: *');
             echo json_encode($data["estacion"]);
 	}
         

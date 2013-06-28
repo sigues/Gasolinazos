@@ -77,6 +77,7 @@ class Gasolineras extends CI_Controller {
        //     echo $latitud.$longitud;
             $this->load->model("gasolineras_m");
             $gasolineras = $this->gasolineras_m->buscarGasolinerasCoord($latitud,$longitud,0.02,$geolat,$geolng,$filtros);
+			header('Access-Control-Allow-Origin: *');
             echo json_encode($gasolineras);
         }
         
