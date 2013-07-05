@@ -63,8 +63,11 @@ class Gasolinera extends CI_Controller {
         
         public function getPerfilEstacion(){
             $idgasolinera = $this->input->post("idgasolinera");
+            $latitud = $this->input->post("latitud");
+            $longitud = $this->input->post("longitud");
             //$idgasolinera = $this->uri->segment(3);
             $this->load->model('gasolinera_m');
+            $this->load->model('gasolineras_m');
             $this->load->model('reporte_profeco');
             /*if($this->uri->segment(4) == "ruta"){
                 $data["ruta"]="true";
@@ -74,13 +77,15 @@ class Gasolinera extends CI_Controller {
             //$data["usuario"] = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
             
             $data["estacion"] = $this->gasolinera_m->getGasolineraByID($idgasolinera);
-            $data["productos"] = $this->gasolinera_m->getProductosByIdgasolinera($data["estacion"]["idgasolinera"]);
-            $data["reportes"] = $this->reporte_profeco->getReportesByEstacion($data["estacion"]["idgasolinera"]);
+            $data["estacion"]["productos"] = $this->gasolinera_m->getProductosByIdgasolinera($data["estacion"]["idgasolinera"]);
+            $data["estacion"]["reportes"] = $this->reporte_profeco->getReportesByEstacion($data["estacion"]["idgasolinera"]);
             $promedio = $this->gasolinera_m->getPromedioGasolinera($data["estacion"]["idgasolinera"]);
-            $data["promedio"] = $promedio->promedio*100;
+            $data["estacion"]["promedio"] = $promedio->promedio*100;
+            $data["estacion"]["distancia"] = $this->gasolineras_m->vincentyGreatCircleDistance($latitud, $longitud, $data["estacion"]["latitud"], $data["estacion"]["longitud"]);
+            //echo $data["distancia"]."<bR>" ;
             /*$usuario = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
             $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($data["estacion"]["idgasolinera"],$usuario);*/
-            $data["votos"] = $promedio->votos;
+            $data["estacion"]["votos"] = $promedio->votos;
             //$data["gasolineras"] = $this->gasolinera_m->getGasolineras();
             //$data["gasolineras"] = $this->gasolineras_m->buscarGasolinerasCoord($data["estacion"]["latitud"],$data["estacion"]["longitud"]);
             //var_dump($gasolineras);
