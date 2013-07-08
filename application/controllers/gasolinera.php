@@ -139,6 +139,20 @@ class Gasolinera extends CI_Controller {
         }
         
         public function nuevaEstacion(){
+            $latitud = $this->input->post('latitud');
+            $longitud = $this->input->post('longitud');
+            $estacion = $this->input->post('estacion');
+            
+            
+            $this->load->library('email');
+            $this->email->from('contacto@gasolinazos.com', "nueva estación");
+            $this->email->to('contacto@gasolinazos.com');
+            $this->email->subject('Contacto por sitio');
+            $this->email->message("$estacion : $latitud,$longitud");
+            $var = $this->email->send();
+            var_dump($var);
+            
+            
             echo "0";
         }
         

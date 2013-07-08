@@ -413,6 +413,7 @@ function guardaGasolinera(){
     var estacion = $("#nuevaEstacion").val();
     $.ajax({
         url:$("#base_url").val()+"index.php/gasolinera/nuevaEstacion",
+        type:"post",
         data:{
             latitud:lat,
             longitud:lng,

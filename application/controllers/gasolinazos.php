@@ -75,7 +75,7 @@ class Gasolinazos extends CI_Controller {
                 //Enviando correo de contacto, esta info no se procesa, como viene se manda
                 $this->load->library('email');
                 $this->email->from($mensaje, $first_name." ".$middle_name." ".$last_name);
-                $this->email->to('someone@example.com');
+                $this->email->to('contacto@gasolinazos.com');
                 $this->email->subject('Contacto por sitio');
                 $this->email->message($mensaje);
 
