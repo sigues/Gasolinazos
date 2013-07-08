@@ -21,7 +21,7 @@
                                     <td>
                                         <?
                                         foreach($productos as $producto){
-                                            echo "<img src=".base_url()."/images/".$producto->nombre.".png width='100px' /> ".$producto->precio."<br>";
+                                            echo "<img src=".base_url()."images/".strtolower($producto->nombre).".png width='100px' /> ".$producto->precio."<br>";
                                         }
                                         ?>
                                     </td>

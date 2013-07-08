@@ -1,4 +1,4 @@
-<div class="fb-comments" data-href="<?=current_url()?>" data-width="825" data-num-posts="10">
+<div class="fb-comments" data-href="<?=$_SERVER["REQUEST_URI"]?>" data-width="825" data-num-posts="10">
 </div>
 <div id="fb-root"></div>
 <script>

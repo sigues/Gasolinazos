@@ -19,7 +19,7 @@ if(!isset($idusuario) || $idusuario == null){
         // Get user's data and print it
         $user = $CI->facebook->api('/me');
         $CI->session->set_userdata("name",$user["name"]);
-        $CI->session->set_userdata("fbid",$user["fbid"]);
+        $CI->session->set_userdata("fbid",$user["id"]);
         $usuario = $CI->gasolinazos_m->getUsuarioByFbid($user["id"]);
         if(sizeof($usuario)==0){
             $CI->gasolinazos_m->registraUsuario($user);
