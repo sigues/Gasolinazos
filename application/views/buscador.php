@@ -88,8 +88,27 @@
         <div id="map-canvas"></div>
         <span><b><a href="<?=base_url()?>index.php/gasolinazos/contacto">¿Te gusta esto? contrátame</a></b></span>
     </section>
+
 </div>
-                    
+<div class="9u">
+    <section id="lectura">
+    <h3>Lectura</h3>
+    <p>Explicación de que representa cada color en los marcadores. Si la gasolinera se encuentra sin votaciones, el color desplegado será el correspondiente a la revisión de PROFECO.</p>
+        <div class="green">Verde</div>
+        <p> <b>Gasolinazos.com</b>: La estación tiene un promedio entre 100% y 85% de satisfacción de los usuarios de <b>Gasolinazos.com</b><br>
+            <b>PROFECO</b>: Gasolineras que dan entre 950 ml y 1 litro por cada litro que venden
+        </p>
+        <div class="yellow">Amarillo</div><br>
+        <p> <b>Gasolinazos.com</b>: La estación tiene un promedio entre 85% y 65% de satisfacción de los usuarios de <b>Gasolinazos.com</b><br>
+            <b>PROFECO</b>: Gasolineras que dan entre 850 ml y 949 ml por cada litro que venden
+        </p>
+        <div class="red">Rojo</div>
+        <p> <b>Gasolinazos.com</b>: La estación tiene un promedio menor a 65% de satisfacción de los usuarios de <b>Gasolinazos.com</b><br>
+            <b>PROFECO</b>: Gasolineras que dan menos de 850 ml por cada litro que venden
+        </p>
+    </section>
+
+</div>              
                         
 
 </div>

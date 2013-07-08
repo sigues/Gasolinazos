@@ -566,7 +566,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', end
             padding: 0 0 0 5px;
         }
         
-        #ul-resultados .green{
+        #ul-resultados .green, #lectura .green{
             background: #cdeb8e; /* Old browsers */
             background: -moz-linear-gradient(top, #cdeb8e 0%, #a5c956 100%); /* FF3.6+ */
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cdeb8e), color-stop(100%,#a5c956)); /* Chrome,Safari4+ */
@@ -577,7 +577,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', end
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdeb8e', endColorstr='#a5c956',GradientType=0 ); /* IE6-9 */
         }
         
-        #ul-resultados .yellow{
+        #ul-resultados .yellow, #lectura .yellow{
             background: -moz-linear-gradient(top, rgba(249,217,119,0.7) 0%, rgba(249,199,49,0.87) 100%); /* FF3.6+ */
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,217,119,0.7)), color-stop(100%,rgba(249,199,49,0.87))); /* Chrome,Safari4+ */
             background: -webkit-linear-gradient(top, rgba(249,217,119,0.7) 0%,rgba(249,199,49,0.87) 100%); /* Chrome10+,Safari5.1+ */
@@ -587,7 +587,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', end
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3f9d977', endColorstr='#def9c731',GradientType=0 ); /* IE6-9 */
         }
         
-        #ul-resultados .red{
+        #ul-resultados .red, #lectura .red{
             background: -moz-linear-gradient(top, rgba(255,72,56,0.5) 0%, rgba(207,4,4,0.83) 100%); /* FF3.6+ */
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,72,56,0.5)), color-stop(100%,rgba(207,4,4,0.83))); /* Chrome,Safari4+ */
             background: -webkit-linear-gradient(top, rgba(255,72,56,0.5) 0%,rgba(207,4,4,0.83) 100%); /* Chrome10+,Safari5.1+ */
