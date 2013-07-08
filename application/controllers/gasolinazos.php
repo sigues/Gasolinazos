@@ -40,7 +40,7 @@ class Gasolinazos extends CI_Controller {
             $pagina = ($pagina>0)?$pagina:1;
             $data["pagina"] = $pagina;
             $data["noticias"] = $this->noticias_m->getNoticias($pagina);
-            $data["count_noticias"] = 15;//$this->noticias_m->countNoticias();
+            $data["count_noticias"] = $this->noticias_m->countNoticias();
             $data["noticiasSidebar"] = $this->noticias_m->getNoticiasSidebar($pagina);
             
             $data["content"] = $this->load->view('noticias',$data,true);
