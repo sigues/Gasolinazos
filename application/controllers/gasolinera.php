@@ -122,9 +122,13 @@ class Gasolinera extends CI_Controller {
         public function votoWS(){
             $voto = $this->input->post('voto');
             $gasolinera = $this->input->post('gasolinera');
-            $usuario = $this->session->userdata("idusuario");
+            $usuario = $this->input->post("movil");
+            $tipo = $this->input->post("tipo");
+            $this->load->model("gasolinazos_m");
+            $usuario = $this->gasolinazos_m->getUsuarioByUUID($usuario,$tipo);
+        
             $this->load->model('gasolinera_m');
-            $usuario = rand(0,1000);//($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
+            //$usuario = rand(0,1000);//($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
             $data=array();
             $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($gasolinera,$usuario);
             if($data["calificacion"]!=$voto && $usuario!=0){

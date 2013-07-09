@@ -227,7 +227,7 @@ class Gasolineras_m extends CI_Model {
 
     }
     
-    function buscarGasolinerasCoordWS($latitud,$longitud,$radio=0.02,$geolat = 0, $geolng=0, $filtros=null,$iterador=0, $usuario){
+    function buscarGasolinerasCoordWS($latitud,$longitud,$radio=0.02,$geolat = 0, $geolng=0, $filtros=null,$iterador=0, $usuario="", $tipo=""){
         if($iterador == 80){
             $error = array("error"=>"No se encontraron gasolineras cercanas con los parámetros solicitados");
             return $error;
@@ -238,8 +238,16 @@ class Gasolineras_m extends CI_Model {
         $lng_ini = $longitud - $radio;
         $lat_fin = $latitud - $radio;
         $lng_fin = $longitud + $radio;
+        
+        
+        
         //$usuario = $this->session->userdata("idusuario");
         //echo $usuario."<--";
+        $this->load->model("gasolinazos_m");
+        $usuario = $this->gasolinazos_m->getUsuarioByUUID($usuario,$tipo);
+        
+        
+        
         $this->db->select("gasolinera.*");
         $this->db->select("IF(voto.idvoto IS NULL,idvoto,count(idvoto)) as votos,
 	IF(voto.idvoto IS NULL,valor,sum(valor)/count(valor)) as promedio");

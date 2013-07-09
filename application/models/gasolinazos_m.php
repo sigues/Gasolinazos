@@ -36,6 +36,25 @@ class Gasolinazos_m extends CI_Model {
 //        var_dump($valores);
     }
     
+    function getUsuarioByUUID($uuid,$tipo){
+        $usuario = $this->getDevice($uuid,$tipo);
+        if($usuario == false){
+            $this->insertDevice($uuid,$tipo);
+            $usuario = $this->getDevice($uuid,$tipo);
+        }
+        return $usuario["idusuario"];
+    }
+    
+    function getDevice($uuid,$tipo){
+        $query = $this->db->get_where("usuario",array("uuid"=>$uuid,"tipo"=>$tipo));
+        return $query->row_array();
+    }
+    
+    function insertDevice($uuid,$tipo){
+        $valores = array("uuid"=>$uuid,"tipo"=>$tipo);
+        $this->db->insert("usuario",$valores);
+    }
+    
     
 
 }
