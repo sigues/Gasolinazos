@@ -65,6 +65,11 @@ class Gasolinera extends CI_Controller {
             $idgasolinera = $this->input->post("idgasolinera");
             $latitud = $this->input->post("latitud");
             $longitud = $this->input->post("longitud");
+            $usuario = $this->input->post("movil");
+            $tipo = $this->input->post("tipo");
+            $this->load->model("gasolinazos_m");
+            $usuario = $this->gasolinazos_m->getUsuarioByUUID($usuario,$tipo);
+        
             //$idgasolinera = $this->uri->segment(3);
             $this->load->model('gasolinera_m');
             $this->load->model('gasolineras_m');
@@ -84,7 +89,9 @@ class Gasolinera extends CI_Controller {
             $data["estacion"]["distancia"] = $this->gasolineras_m->vincentyGreatCircleDistance($latitud, $longitud, $data["estacion"]["latitud"], $data["estacion"]["longitud"]);
             //echo $data["distancia"]."<bR>" ;
             /*$usuario = ($this->session->userdata("idusuario"))?$this->session->userdata("idusuario"):0;
-            $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($data["estacion"]["idgasolinera"],$usuario);*/
+            */
+            
+            $data["calificacion"] = $this->gasolinera_m->getCalificacionByUsuario($data["estacion"]["idgasolinera"],$usuario);
             $data["estacion"]["votos"] = $promedio->votos;
             //$data["gasolineras"] = $this->gasolinera_m->getGasolineras();
             //$data["gasolineras"] = $this->gasolineras_m->buscarGasolinerasCoord($data["estacion"]["latitud"],$data["estacion"]["longitud"]);
