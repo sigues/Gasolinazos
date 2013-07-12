@@ -19,6 +19,7 @@ class Gasolinazos extends CI_Controller {
                 $data["banner"] = true;
                 $data["features"] = true;
                 $data["precio"] = $this->gasolinera_m->getPreciosProductos();
+                $data["preciosAnteriores"] = $this->gasolinera_m->getPreciosProductosAnteriores();
                 $data["content"] = $this->load->view('index/content',$data,true);
                 $this->load->view('main',$data);
 //                $this->load->view('principal',$data);

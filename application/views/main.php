@@ -35,18 +35,19 @@
                 <link rel="stylesheet" href="<?=base_url()?>css/style-desktop.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="<?=base_url()?>css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><script src="<?=base_url()?>js/html5shiv.js"></script><![endif]-->
+                <script>
+                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                    ga('create', 'UA-41316581-1', 'gasolinazos.com');
+                    ga('send', 'pageview');
+
+                </script>
+
 	</head>
 	<body class="subpage">
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-41316581-1', 'startlogic.com');
-  ga('send', 'pageview');
-
-</script>
 <!--Below we include the Login Button social plugin. This button uses the JavaScript SDK to-->
 <!--present a graphical Login button that triggers the FB.login() function when clicked.-->
 
@@ -57,12 +58,17 @@
 						<div class="12u">
 
 							<!-- Logo -->
-								<h1><a href="<?=base_url()?>index.php" id="logo"><img src="<?=base_url()?>/images/lg-s.png" /><?$this->load->view("index/follow_us");?></h1></a>
+                                                        <div id="titulo_botones">
+								<h1>
+                                                                    <a href="<?=base_url()?>index.php" id="logo" style="float:left;padding-top:20px"><img src="<?=base_url()?>/images/lg-s.png" /></a>
+                                                                </h1>
+                                                                <?$this->load->view("index/follow_us");?>
+                                                        </div>
 							
 							<!-- Nav -->
 								<nav id="nav">
 									<a href="<?=base_url()?>index.php">Inicio</a>
-									<a href="<?=base_url()?>index.php/gasolineras/buscador">Estaciones</a>
+									<a href="<?=base_url()?>index.php/gasolineras/buscador">Buscador</a>
 									<a href="<?=base_url()?>index.php/gasolinazos/noticias">Noticias</a>
 									<a href="<?=base_url()?>index.php/gasolinazos/contacto">Contacto</a>
 								</nav>

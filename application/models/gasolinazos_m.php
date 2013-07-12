@@ -25,9 +25,6 @@ class Gasolinazos_m extends CI_Model {
                 if($c == "id"){
                     $c="fbid";
                 }
-                if($c == "email"){
-                    $c="correo";
-                }
                 $valores[$c]=$v;
             }
         }

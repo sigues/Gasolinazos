@@ -252,6 +252,15 @@
 		background-image: linear-gradient(top, #ce1a00, #ed391b);
 	}
         
+        #titulo_botones{
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            width: 450px;
+            min-height: 155px;
+            padding-top: 15px;
+        }
+        
         #nav {
             font-size: 13.5pt;
 		
@@ -623,12 +632,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', end
         }
         
         #banner {
-            background: #398235; /* Old browsers */
-            background: -moz-linear-gradient(top, #398235 0%, #8ab66b 56%, #c9de96 100%); /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#398235), color-stop(56%,#8ab66b), color-stop(100%,#c9de96)); /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* Opera 11.10+ */
-            background: -ms-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* IE10+ */
-            background: linear-gradient(to bottom, #398235 0%,#8ab66b 56%,#c9de96 100%); /* W3C */
+            background:  #398235; /* Old browsers */
+            background: url('../images/mapa.png') no-repeat left, -moz-linear-gradient(top, #398235 0%, #8ab66b 56%, #c9de96 100%); /* FF3.6+ */
+            background: url('../images/mapa.png') no-repeat left, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#398235), color-stop(56%,#8ab66b), color-stop(100%,#c9de96)); /* Chrome,Safari4+ */
+            background: url('../images/mapa.png') no-repeat left, -webkit-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* Chrome10+,Safari5.1+ */
+            background: url('../images/mapa.png') no-repeat left, -o-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* Opera 11.10+ */
+            background: url('../images/mapa.png') no-repeat left, -ms-linear-gradient(top, #398235 0%,#8ab66b 56%,#c9de96 100%); /* IE10+ */
+            background: url('../images/mapa.png') no-repeat left, linear-gradient(to bottom, #398235 0%,#8ab66b 56%,#c9de96 100%); /* W3C */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398235', endColorstr='#c9de96',GradientType=0 ); /* IE6-9 */
+        }
+        
+        #textoPrueba{
+            color:#FFFFFF;
+            font-weight: 900;
+            text-shadow: 0 0 15px #000000;
         }

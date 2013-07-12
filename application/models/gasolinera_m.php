@@ -169,6 +169,21 @@ class Gasolinera_m extends CI_Model {
         return $producto;
     }
     
+    function getPreciosProductosAnteriores(){
+        $this->db->select("zona_has_producto.precio, zona_has_producto.fecha, producto.nombre, producto.idproducto");
+        $this->db->from("producto");
+        $this->db->join("zona_has_producto","producto.idproducto = zona_has_producto.producto_idproducto");
+        $this->db->order_by("zona_has_producto.producto_idproducto","asc");
+        $this->db->order_by("zona_has_producto.fecha","desc");
+        $query = $this->db->get();
+        $producto = array();
+        foreach($query->result() as $row){
+            $producto[] = $row;
+        }
+        return $producto;
+    }
+    
+    
     function getCalificacionByUsuario($idgasolinera,$idusuario){
         $this->db->select("valor");
         $this->db->from("voto");
@@ -177,7 +192,8 @@ class Gasolinera_m extends CI_Model {
         $this->db->order_by("idvoto","desc");
         $this->db->limit(1);
         $query = $this->db->get();
-        $calificacion=array();
+        //echo $this->db->last_query();
+        $calificacion="";
         foreach($query->result() as $row){
             $calificacion = $row->valor;
         }

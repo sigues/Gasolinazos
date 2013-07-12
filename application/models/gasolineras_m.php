@@ -215,7 +215,7 @@ class Gasolineras_m extends CI_Model {
         asort($distancias);
         $x=0;
         foreach($distancias as $c=>$gasolinera){
-            if($x<10){
+            if($x<15){
             $response[$x] = $respuesta[$c];
             } else {
                 break(1);
