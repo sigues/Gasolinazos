@@ -4,4 +4,4 @@ Gasolinazos
 Gasolinazos
 
 
-proyecto de mis huevos peludos
+proyecto de Gasolinazos
